@@ -1,0 +1,2 @@
+# TeamKarna
+Rapid Knowledge Internalization
