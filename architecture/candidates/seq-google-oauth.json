@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Sequence Diagram — Google OAuth 2.0 PKCE Login, Cookie Persistence & Logout",
+    "subtitle": "End-to-End Authentication Flow in app.py and modules/auth.py with SQLite Token Hashing and Workspace Isolation",
+    "output": "architecture/seq-google-oauth.html",
+    "parentHref": "system-architecture.html",
+    "column_fit": "spread",
+    "animation": "trace",
+    "quality_profile": "showcase"
+  },
+  "participants": [
+    {
+      "id": "browser",
+      "type": "frontend",
+      "label": "User Browser",
+      "sublabel": "Sidebar Popover & Cookie JS",
+      "explanation": "Clicks the top-left sidebar person avatar, completes Google consent, and stores the signed kx_auth_session cookie."
+    },
+    {
+      "id": "app_shell",
+      "type": "frontend",
+      "label": "app.py",
+      "sublabel": "_handle_google_auth_lifecycle()",
+      "explanation": "Intercepts ?code / ?state query params on rerun, triggers cookie sync via components.html, and swaps user upload workspace."
+    },
+    {
+      "id": "auth_mod",
+      "type": "security",
+      "label": "modules/auth.py",
+      "sublabel": "PKCE, OIDC & Serializer",
+      "explanation": "Generates PKCE S256 verifiers, calls oauth2.googleapis.com/token, verifies Google OIDC JWT, and signs 7-day tokens."
+    },
+    {
+      "id": "sqlite_auth",
+      "type": "database",
+      "label": "SQLite Auth Tables",
+      "sublabel": "oauth_states & auth_sessions",
+      "explanation": "Stores single-use sha256(state) + code_verifier (600s TTL), sha256(token) user sessions, and persistent signing secret."
+    },
+    {
+      "id": "google_idp",
+      "type": "external",
+      "label": "Google OAuth & OIDC",
+      "sublabel": "accounts / oauth2.googleapis.com",
+      "explanation": "Authenticates user consent and issues signed OpenID Connect ID tokens."
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 285,
+      "label": "1. Login Initiation (PKCE S256)"
+    },
+    {
+      "from": 295,
+      "to": 510,
+      "label": "2. Callback Exchange & OIDC Verification"
+    },
+    {
+      "from": 520,
+      "to": 640,
+      "label": "3. Cookie Restore & Logout Revocation"
+    }
+  ],
+  "messages": [
+    {
+      "id": "click_avatar",
+      "from": "browser",
+      "to": "app_shell",
+      "y": 170,
+      "label": "Click sidebar avatar -> Sign in with Google",
+      "variant": "default"
+    },
+    {
+      "id": "req_auth_url",
+      "from": "app_shell",
+      "to": "auth_mod",
+      "y": 202,
+      "label": "create_google_authorization_url()",
+      "variant": "security"
+    },
+    {
+      "id": "store_pkce",
+      "from": "auth_mod",
+      "to": "sqlite_auth",
+      "y": 234,
+      "label": "INSERT oauth_states(sha256(state), verifier, 600s)",
+      "variant": "security"
+    },
+    {
+      "id": "redirect_google",
+      "from": "app_shell",
+      "to": "google_idp",
+      "y": 268,
+      "label": "Redirect with S256 code_challenge & state",
+      "variant": "emphasis"
+    },
+    {
+      "id": "callback_code",
+      "from": "google_idp",
+      "to": "app_shell",
+      "y": 315,
+      "label": "Redirect back to app (?code & ?state)",
+      "variant": "return"
+    },
+    {
+      "id": "consume_state",
+      "from": "app_shell",
+      "to": "auth_mod",
+      "y": 348,
+      "label": "complete_google_oauth_callback(code, state)",
+      "variant": "security"
+    },
+    {
+      "id": "pop_pkce",
+      "from": "auth_mod",
+      "to": "sqlite_auth",
+      "y": 380,
+      "label": "Pop single-use code_verifier from oauth_states",
+      "variant": "security"
+    },
+    {
+      "id": "token_post",
+      "from": "auth_mod",
+      "to": "google_idp",
+      "y": 412,
+      "label": "POST /token (code + verifier + secret)",
+      "variant": "security",
+      "note": "verify_oauth2_token checks iss, aud, sub & email_verified=true"
+    },
+    {
+      "id": "mint_session",
+      "from": "auth_mod",
+      "to": "sqlite_auth",
+      "y": 485,
+      "label": "INSERT auth_sessions(sha256(token), user_id, 7d)",
+      "variant": "security"
+    },
+    {
+      "id": "sync_cookie",
+      "from": "app_shell",
+      "to": "browser",
+      "y": 535,
+      "label": "Write kx_auth_session cookie & swap user dir",
+      "variant": "emphasis",
+      "note": "Workspace switches to uploads/user_<sha256(user_id)[:16]>/"
+    },
+    {
+      "id": "logout_req",
+      "from": "browser",
+      "to": "app_shell",
+      "y": 605,
+      "label": "Sidebar Logout -> clear cookie & st.rerun()",
+      "variant": "dashed"
+    },
+    {
+      "id": "revoke_db",
+      "from": "auth_mod",
+      "to": "sqlite_auth",
+      "y": 635,
+      "label": "DELETE FROM auth_sessions WHERE token_hash=?",
+      "variant": "security"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "app_shell",
+      "from": 170,
+      "to": 272,
+      "type": "frontend"
+    },
+    {
+      "participant": "auth_mod",
+      "from": 202,
+      "to": 238,
+      "type": "security"
+    },
+    {
+      "participant": "app_shell",
+      "from": 315,
+      "to": 540,
+      "type": "frontend"
+    },
+    {
+      "participant": "auth_mod",
+      "from": 348,
+      "to": 495,
+      "type": "security"
+    },
+    {
+      "participant": "google_idp",
+      "from": 268,
+      "to": 420,
+      "type": "external"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Zero Raw Secret Storage",
+      "items": [
+        "OAuth client credentials come strictly from .env or st.secrets via load_google_oauth_config().",
+        "oauth_states and auth_sessions persist SHA-256 hashes rather than raw state strings or bearer cookies."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Workspace Isolation on Identity Change",
+      "items": [
+        "_handle_google_auth_lifecycle() resets cached workspace documents whenever active auth_user_id changes so one user's PDFs never leak into another user's session."
+      ]
+    }
+  ]
+}

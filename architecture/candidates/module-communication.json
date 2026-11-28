@@ -1,0 +1,394 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "layout": {
+    "mode": "grid",
+    "cols": 4,
+    "cellW": 230,
+    "gapX": 64,
+    "gapY": 52
+  },
+  "meta": {
+    "title": "KNOWLEDGE X — Frontend–Backend & Module Communication",
+    "subtitle": "Complete Dependency Graph Across app.py, All 7 Pages, All 8 Domain Modules, Evaluation Scripts & Storage",
+    "output": "architecture/module-communication.html",
+    "parentHref": "system-architecture.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "entry_app",
+      "type": "frontend",
+      "label": "app.py",
+      "sublabel": "Shell & Navigation",
+      "tag": "ENTRYPOINT",
+      "icon": "frontend",
+      "row": 0,
+      "col": 0,
+      "explanation": "Initializes session_state keys, injects assets/style.css, runs _handle_google_auth_lifecycle(), draws sidebar avatar popover and model controls, and routes to all 7 pages."
+    },
+    {
+      "id": "pg_dashboard",
+      "type": "frontend",
+      "label": "dashboard.py",
+      "sublabel": "Intake & Synthesis Pipel",
+      "tag": "PAGE 1",
+      "icon": "frontend",
+      "row": 0,
+      "col": 1,
+      "explanation": "Drives 3-channel document intake and orchestrates the 4-stage Full AI Synthesis Pipeline directly into session_state and SQLite."
+    },
+    {
+      "id": "pg_analysis",
+      "type": "frontend",
+      "label": "knowledge_analysis",
+      "sublabel": "Synthesis, Heatmap & .md",
+      "tag": "PAGE 2",
+      "icon": "frontend",
+      "row": 1,
+      "col": 1,
+      "explanation": "Calls analyze_documents() and detect_research_gaps(), persists sessions via history_db, and builds Plotly concept & coverage charts."
+    },
+    {
+      "id": "pg_map",
+      "type": "frontend",
+      "label": "knowledge_map",
+      "sublabel": "Semantic & Structural Ma",
+      "tag": "PAGE 3",
+      "icon": "frontend",
+      "row": 2,
+      "col": 1,
+      "explanation": "Supports AI extraction or instant PyMuPDF structural graph synthesis, computes NetworkX metrics, and plots an interactive Plotly map."
+    },
+    {
+      "id": "pg_assistant",
+      "type": "frontend",
+      "label": "research_assistant",
+      "sublabel": "Scoped Chat & Cited QA",
+      "tag": "PAGE 4",
+      "icon": "frontend",
+      "row": 3,
+      "col": 1,
+      "explanation": "Filters active corpus via st.multiselect and sends user questions to answer_research_question() with top-10 chunk grounding."
+    },
+    {
+      "id": "pg_ambiguity",
+      "type": "frontend",
+      "label": "ambiguity_detector",
+      "sublabel": "Clarification & History",
+      "tag": "PAGE 5",
+      "icon": "frontend",
+      "row": 4,
+      "col": 1,
+      "explanation": "Stateful wizard running process_initial_question(), rendering radio/custom clarification controls, executing complete_clarified_question(), and archiving results."
+    },
+    {
+      "id": "pg_history",
+      "type": "frontend",
+      "label": "research_history",
+      "sublabel": "User Archive & Reopen",
+      "tag": "PAGE 6",
+      "icon": "frontend",
+      "row": 5,
+      "col": 1,
+      "explanation": "Enforces Google auth_user guard, lists research_sessions and ambiguity_history scoped by user_id, and reconstructs graphs or Markdown exports."
+    },
+    {
+      "id": "pg_profile",
+      "type": "frontend",
+      "label": "profile.py",
+      "sublabel": "Google Account & KPIs",
+      "tag": "PAGE 7",
+      "icon": "frontend",
+      "row": 6,
+      "col": 1,
+      "explanation": "Displays Google profile avatar, verified identity fields, get_user_history_summary(), and workspace corpus KPIs."
+    },
+    {
+      "id": "mod_ocr",
+      "type": "backend",
+      "label": "ocr_scanner.py",
+      "sublabel": "Blur Gate & Vision OCR",
+      "tag": "MODULE",
+      "icon": "backend",
+      "row": 0,
+      "col": 2,
+      "explanation": "Validates contrast/sharpness via NumPy, extracts structured OCR text per page, and embeds invisible render_mode=3 text layers in PyMuPDF PDFs."
+    },
+    {
+      "id": "mod_gap",
+      "type": "backend",
+      "label": "research_gap.py",
+      "sublabel": "Gaps & Coverage Heatmap",
+      "tag": "MODULE",
+      "icon": "backend",
+      "row": 1,
+      "col": 2,
+      "explanation": "Consumes multi-document contexts through ai_analysis.generate_structured_json() and builds topic coverage matrices."
+    },
+    {
+      "id": "mod_kmap",
+      "type": "backend",
+      "label": "knowledge_map",
+      "sublabel": "NetworkX & Plotly Engine",
+      "tag": "MODULE",
+      "icon": "backend",
+      "row": 2,
+      "col": 2,
+      "explanation": "Creates typed knowledge graphs from AI extraction, synthesis outputs, or PyMuPDF term co-occurrence fallback."
+    },
+    {
+      "id": "mod_amb",
+      "type": "backend",
+      "label": "ambiguity_detector",
+      "sublabel": "Classify, Guard & Rewrit",
+      "tag": "MODULE",
+      "icon": "backend",
+      "row": 4,
+      "col": 2,
+      "explanation": "Combines deterministic comparison guard with Gemini JSON classification and question rewriting before delegating final QA to ai_analysis.",
+      "drilldowns": [
+        {
+          "href": "seq-ambiguity-detector.html",
+          "label": "Ambiguity Sequence",
+          "diagram_type": "sequence"
+        }
+      ]
+    },
+    {
+      "id": "eval_suite",
+      "type": "backend",
+      "label": "evaluation/",
+      "sublabel": "build_dataset & eval CLI",
+      "tag": "EVAL",
+      "icon": "backend",
+      "row": 7,
+      "col": 0,
+      "explanation": "Offline CLI scripts generating curated benchmark questions and computing Clear / Ambiguous / Insufficient Context evaluation metrics."
+    },
+    {
+      "id": "mod_pdf",
+      "type": "backend",
+      "label": "pdf_reader.py",
+      "sublabel": "PyMuPDF & Chunks",
+      "tag": "CORE",
+      "icon": "backend",
+      "row": 0,
+      "col": 3,
+      "explanation": "Parses PDFs, enforces URL SSRF/DNS/size rules, computes corpus KPIs, builds token-budgeted contexts, and retrieves weighted chunks."
+    },
+    {
+      "id": "mod_ai",
+      "type": "backend",
+      "label": "ai_analysis.py",
+      "sublabel": "Gemini Client & Cited QA",
+      "tag": "CORE",
+      "icon": "backend",
+      "row": 2,
+      "col": 3,
+      "explanation": "Shared AI gateway providing generate_structured_json(), analyze_documents(), answer_research_question(), Markdown export, and secret redaction.",
+      "drilldowns": [
+        {
+          "href": "api-architecture.html",
+          "label": "Gemini API & Fallback",
+          "diagram_type": "architecture"
+        }
+      ]
+    },
+    {
+      "id": "mod_auth",
+      "type": "security",
+      "label": "auth.py",
+      "sublabel": "PKCE & Cookies",
+      "tag": "CORE SEC",
+      "icon": "security",
+      "row": 4,
+      "col": 3,
+      "explanation": "Handles OAuth config, PKCE/state DB tracking, Google token exchange, OIDC verify_oauth2_token, signed cookies, and user upload directory hashing.",
+      "drilldowns": [
+        {
+          "href": "seq-google-oauth.html",
+          "label": "Google OAuth Sequence",
+          "diagram_type": "sequence"
+        }
+      ]
+    },
+    {
+      "id": "mod_hist",
+      "type": "database",
+      "label": "history_db.py",
+      "sublabel": "User-Scoped SQLite CRUD",
+      "tag": "CORE DB",
+      "icon": "database",
+      "row": 5,
+      "col": 2,
+      "explanation": "Manages knowledge_x_history.db schema migrations, secret scrubbing, and user_id-isolated save/list/get/delete APIs.",
+      "drilldowns": [
+        {
+          "href": "database-erd.html",
+          "label": "Database ERD"
+        }
+      ]
+    },
+    {
+      "id": "store_sqlite",
+      "type": "database",
+      "label": "SQLite & uploads/",
+      "sublabel": "5 Tables & User PDF Dirs",
+      "tag": "LOCAL DATA",
+      "icon": "database",
+      "row": 6,
+      "col": 3,
+      "explanation": "Shared persistence backing both authentication state and per-user research outputs and uploaded PDF documents."
+    }
+  ],
+  "connections": [
+    {
+      "from": "entry_app",
+      "to": "pg_dashboard",
+      "label": "routes (7 pages)"
+    },
+    {
+      "from": "entry_app",
+      "to": "mod_auth",
+      "label": "OAuth & cookie",
+      "variant": "security"
+    },
+    {
+      "from": "entry_app",
+      "to": "mod_ai",
+      "label": "model config"
+    },
+    {
+      "from": "pg_dashboard",
+      "to": "mod_ocr",
+      "label": "scan pages"
+    },
+    {
+      "from": "pg_dashboard",
+      "to": "mod_pdf",
+      "label": "PDF & URL ingest"
+    },
+    {
+      "from": "pg_dashboard",
+      "to": "mod_gap",
+      "label": "pipeline gaps"
+    },
+    {
+      "from": "pg_analysis",
+      "to": "mod_gap",
+      "label": "gaps & heatmap"
+    },
+    {
+      "from": "pg_analysis",
+      "to": "mod_ai",
+      "label": "analyze & .md"
+    },
+    {
+      "from": "pg_map",
+      "to": "mod_kmap",
+      "label": "graph & Plotly"
+    },
+    {
+      "from": "pg_assistant",
+      "to": "mod_ai",
+      "label": "cited QA"
+    },
+    {
+      "from": "pg_ambiguity",
+      "to": "mod_amb",
+      "label": "detect & clarify"
+    },
+    {
+      "from": "pg_ambiguity",
+      "to": "mod_hist",
+      "label": "save ambiguity"
+    },
+    {
+      "from": "pg_history",
+      "to": "mod_hist",
+      "label": "list, get, delete"
+    },
+    {
+      "from": "pg_history",
+      "to": "mod_kmap",
+      "label": "rebuild map"
+    },
+    {
+      "from": "pg_profile",
+      "to": "mod_hist",
+      "label": "user summary"
+    },
+    {
+      "from": "pg_profile",
+      "to": "mod_pdf",
+      "label": "corpus stats"
+    },
+    {
+      "from": "mod_ocr",
+      "to": "mod_pdf",
+      "label": "extract_pdf_bytes"
+    },
+    {
+      "from": "mod_ocr",
+      "to": "mod_ai",
+      "label": "Vision JSON"
+    },
+    {
+      "from": "mod_gap",
+      "to": "mod_ai",
+      "label": "schema JSON",
+      "toSide": "left"
+    },
+    {
+      "from": "mod_kmap",
+      "to": "mod_ai",
+      "label": "graph schema"
+    },
+    {
+      "from": "mod_amb",
+      "to": "mod_ai",
+      "label": "classify & QA"
+    },
+    {
+      "from": "eval_suite",
+      "to": "mod_amb",
+      "label": "eval loop",
+      "variant": "dashed"
+    },
+    {
+      "from": "mod_auth",
+      "to": "store_sqlite",
+      "label": "auth tables & user dir",
+      "variant": "security"
+    },
+    {
+      "from": "mod_hist",
+      "to": "store_sqlite",
+      "label": "history tables"
+    },
+    {
+      "from": "mod_pdf",
+      "to": "store_sqlite",
+      "label": "write/rm PDFs"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Layered In-Process Dependency DAG",
+      "items": [
+        "app.py dispatches all 7 pages via st.navigation(position='sidebar') and centralizes auth, corpus state, and model settings.",
+        "Domain modules (ocr_scanner, research_gap, knowledge_map, ambiguity_detector) sit cleanly between UI pages and core services (pdf_reader, ai_analysis, auth, history_db)."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Direct Python Contracts & Offline Eval",
+      "items": [
+        "No internal REST endpoints: pages import module APIs and handle AIServiceError, PDFProcessingError, ScanProcessingError, AuthenticationError, and HistoryStorageError.",
+        "evaluation/ scripts exercise process_initial_question() directly without running Streamlit."
+      ]
+    }
+  ]
+}

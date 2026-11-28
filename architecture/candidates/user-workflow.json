@@ -1,0 +1,250 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "KNOWLEDGE X — End-to-End User Workflow",
+    "subtitle": "How Researchers Authenticate, Ingest Multi-Format Sources, Synthesize Insights, Disambiguate Queries & Manage Saved History",
+    "output": "architecture/user-workflow.html",
+    "parentHref": "system-architecture.html",
+    "quality_profile": "showcase",
+    "animation": "trace",
+    "visual_preset": "editorial"
+  },
+  "lanes": [
+    {
+      "id": "lane_auth",
+      "label": "Auth & App Shell",
+      "variant": "normal"
+    },
+    {
+      "id": "lane_ingest",
+      "label": "Document Ingestion",
+      "variant": "normal"
+    },
+    {
+      "id": "lane_explore",
+      "label": "AI Analysis & Exploration",
+      "variant": "normal"
+    },
+    {
+      "id": "lane_archive",
+      "label": "History & Guardrails",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "ph_start",
+      "label": "1. Session & Auth",
+      "fromCol": 0,
+      "toCol": 0
+    },
+    {
+      "id": "ph_intake",
+      "label": "2. Ingest & Validate",
+      "fromCol": 1,
+      "toCol": 1
+    },
+    {
+      "id": "ph_ai",
+      "label": "3. AI Synthesis",
+      "fromCol": 2,
+      "toCol": 2
+    },
+    {
+      "id": "ph_save",
+      "label": "4. Explore & Archive",
+      "fromCol": 3,
+      "toCol": 3
+    }
+  ],
+  "nodes": [
+    {
+      "id": "wf_open_app",
+      "lane": "lane_auth",
+      "col": 0,
+      "type": "frontend",
+      "label": "Open App",
+      "icon": "start"
+    },
+    {
+      "id": "wf_google_login",
+      "lane": "lane_auth",
+      "col": 1,
+      "type": "security",
+      "label": "Google Login",
+      "icon": "person"
+    },
+    {
+      "id": "wf_select_intake",
+      "lane": "lane_ingest",
+      "col": 0,
+      "type": "frontend",
+      "label": "Select Source",
+      "icon": "decision"
+    },
+    {
+      "id": "wf_validate_extract",
+      "lane": "lane_ingest",
+      "col": 1,
+      "type": "backend",
+      "label": "Extract PDF",
+      "icon": "active"
+    },
+    {
+      "id": "wf_run_pipeline",
+      "lane": "lane_explore",
+      "col": 2,
+      "type": "cloud",
+      "label": "AI Pipeline",
+      "icon": "active"
+    },
+    {
+      "id": "wf_explore_insights",
+      "lane": "lane_explore",
+      "col": 3,
+      "type": "frontend",
+      "label": "Explore & QA",
+      "icon": "active"
+    },
+    {
+      "id": "wf_save_history",
+      "lane": "lane_auth",
+      "col": 3,
+      "type": "database",
+      "label": "Save Archive",
+      "icon": "success"
+    },
+    {
+      "id": "wf_blocked_guard",
+      "lane": "lane_archive",
+      "col": 1,
+      "type": "security",
+      "label": "Guard Blocked",
+      "icon": "failure"
+    },
+    {
+      "id": "wf_quota_fallback",
+      "lane": "lane_archive",
+      "col": 2,
+      "type": "backend",
+      "label": "Model Fallback",
+      "icon": "waiting"
+    }
+  ],
+  "edges": [
+    {
+      "from": "wf_open_app",
+      "to": "wf_google_login",
+      "label": "Optional OAuth",
+      "role": "branch"
+    },
+    {
+      "from": "wf_open_app",
+      "to": "wf_select_intake",
+      "label": "Go to Dashboard",
+      "role": "main"
+    },
+    {
+      "from": "wf_google_login",
+      "to": "wf_validate_extract",
+      "label": "User dir ready",
+      "role": "branch"
+    },
+    {
+      "from": "wf_select_intake",
+      "to": "wf_validate_extract",
+      "label": "Submit files",
+      "role": "main"
+    },
+    {
+      "from": "wf_validate_extract",
+      "to": "wf_run_pipeline",
+      "label": "Corpus indexed",
+      "role": "main"
+    },
+    {
+      "from": "wf_validate_extract",
+      "to": "wf_blocked_guard",
+      "label": "SSRF or blur",
+      "role": "error",
+      "variant": "dashed"
+    },
+    {
+      "from": "wf_run_pipeline",
+      "to": "wf_explore_insights",
+      "label": "Insights ready",
+      "role": "main"
+    },
+    {
+      "from": "wf_run_pipeline",
+      "to": "wf_quota_fallback",
+      "label": "429 quota hit",
+      "role": "error",
+      "variant": "dashed"
+    },
+    {
+      "from": "wf_quota_fallback",
+      "to": "wf_explore_insights",
+      "label": "Fallback succeeds",
+      "role": "return"
+    },
+    {
+      "from": "wf_explore_insights",
+      "to": "wf_save_history",
+      "label": "Persist & export",
+      "role": "main"
+    },
+    {
+      "from": "wf_blocked_guard",
+      "to": "wf_select_intake",
+      "label": "Fix & retry",
+      "role": "return",
+      "route": "return-left"
+    }
+  ],
+  "semanticChecks": {
+    "allowedRoots": [
+      "wf_open_app"
+    ],
+    "allowedTerminals": [
+      "wf_save_history"
+    ],
+    "requiredEdges": [
+      {
+        "from": "wf_open_app",
+        "to": "wf_select_intake"
+      },
+      {
+        "from": "wf_select_intake",
+        "to": "wf_validate_extract"
+      },
+      {
+        "from": "wf_validate_extract",
+        "to": "wf_run_pipeline"
+      },
+      {
+        "from": "wf_run_pipeline",
+        "to": "wf_explore_insights"
+      }
+    ]
+  },
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Flexible Entry Without Hard Login Gate",
+      "items": [
+        "Researchers can upload PDFs, run OCR, synthesize topics, explore maps, and ask cited questions immediately under anonymous/legacy storage.",
+        "Signing in via the sidebar avatar enables persistent Google OAuth cookies, Profile KPIs, and isolated Research History across sessions."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Built-In Guardrails & Recovery Paths",
+      "items": [
+        "Pre-flight quality and security checks reject blurry camera captures (<3.0 Laplacian variance) and unsafe internal URLs before consuming AI tokens.",
+        "Transient Gemini rate-limit or daily quota failures fail over automatically when auto_fallback is enabled."
+      ]
+    }
+  ]
+}

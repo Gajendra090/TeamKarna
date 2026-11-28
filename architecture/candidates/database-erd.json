@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "diagram_type": "erd",
+  "layout": {
+    "mode": "grid"
+  },
+  "meta": {
+    "title": "KNOWLEDGE X — Database & Storage Architecture (ERD)",
+    "subtitle": "SQLite Physical Schema (knowledge_x_history.db · 5 Tables & 4 Indexes) & Application-Enforced user_id Isolation",
+    "output": "architecture/database-erd.html",
+    "quality_profile": "showcase"
+  },
+  "entities": [
+    {
+      "id": "research_sessions",
+      "label": "research_sessions",
+      "sublabel": "Saved multi-doc syntheses, gaps & graph payloads",
+      "tag": "RESEARCH DATA",
+      "row": 0,
+      "col": 0,
+      "attributes": [
+        { "name": "session_id", "type": "TEXT NOT NULL", "key": "pk" },
+        { "name": "created_at", "type": "TEXT NOT NULL" },
+        { "name": "research_topic", "type": "TEXT NOT NULL" },
+        { "name": "document_names_json", "type": "TEXT NOT NULL" },
+        { "name": "document_count", "type": "INTEGER NOT NULL" },
+        { "name": "analysis_results_json", "type": "TEXT NOT NULL" },
+        { "name": "common_concepts_json", "type": "TEXT NOT NULL" },
+        { "name": "research_gaps_json", "type": "TEXT NOT NULL" },
+        { "name": "knowledge_graph_json", "type": "TEXT NOT NULL" },
+        { "name": "user_id", "type": "TEXT NOT NULL DEFAULT 'legacy_local'" }
+      ]
+    },
+    {
+      "id": "ambiguity_history",
+      "label": "ambiguity_history",
+      "sublabel": "Clarified query classification & cited final answers",
+      "tag": "AMBIGUITY DATA",
+      "row": 1,
+      "col": 0,
+      "attributes": [
+        { "name": "record_id", "type": "TEXT NOT NULL", "key": "pk" },
+        { "name": "created_at", "type": "TEXT NOT NULL" },
+        { "name": "document_names_json", "type": "TEXT NOT NULL" },
+        { "name": "original_question", "type": "TEXT NOT NULL" },
+        { "name": "classification", "type": "TEXT NOT NULL" },
+        { "name": "unclear_phrases_json", "type": "TEXT NOT NULL" },
+        { "name": "ambiguity_reason", "type": "TEXT NOT NULL" },
+        { "name": "interpretations_json", "type": "TEXT NOT NULL" },
+        { "name": "user_clarification", "type": "TEXT NOT NULL" },
+        { "name": "resolved_question", "type": "TEXT NOT NULL" },
+        { "name": "final_answer", "type": "TEXT NOT NULL" },
+        { "name": "citations_json", "type": "TEXT NOT NULL" },
+        { "name": "model_used", "type": "TEXT NOT NULL" },
+        { "name": "user_id", "type": "TEXT NOT NULL DEFAULT 'legacy_local'" }
+      ]
+    },
+    {
+      "id": "auth_sessions",
+      "label": "auth_sessions",
+      "sublabel": "Google OAuth active login tokens (7-day TTL)",
+      "tag": "AUTH SESSION",
+      "row": 0,
+      "col": 1,
+      "attributes": [
+        { "name": "token_hash", "type": "TEXT NOT NULL", "key": "pk" },
+        { "name": "user_id", "type": "TEXT NOT NULL" },
+        { "name": "email", "type": "TEXT NOT NULL" },
+        { "name": "name", "type": "TEXT NOT NULL" },
+        { "name": "picture", "type": "TEXT NOT NULL" },
+        { "name": "created_at", "type": "REAL NOT NULL" },
+        { "name": "expires_at", "type": "REAL NOT NULL" }
+      ]
+    },
+    {
+      "id": "oauth_states",
+      "label": "oauth_states",
+      "sublabel": "Ephemeral PKCE code_verifier & CSRF state (600s TTL)",
+      "tag": "PKCE STATE",
+      "row": 1,
+      "col": 1,
+      "attributes": [
+        { "name": "state_hash", "type": "TEXT NOT NULL", "key": "pk" },
+        { "name": "code_verifier", "type": "TEXT NOT NULL" },
+        { "name": "created_at", "type": "REAL NOT NULL" },
+        { "name": "expires_at", "type": "REAL NOT NULL" }
+      ]
+    },
+    {
+      "id": "app_settings",
+      "label": "app_settings",
+      "sublabel": "Persistent server secrets (cookie_signing_secret)",
+      "tag": "CONFIG KV",
+      "row": 0,
+      "col": 2,
+      "attributes": [
+        { "name": "setting_key", "type": "TEXT NOT NULL", "key": "pk" },
+        { "name": "setting_value", "type": "TEXT NOT NULL" }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": "auth_sessions",
+      "to": "research_sessions",
+      "label": "logical user_id ownership",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "identifying": false,
+      "variant": "dashed"
+    },
+    {
+      "from": "auth_sessions",
+      "to": "ambiguity_history",
+      "label": "logical user_id ownership",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "identifying": false,
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "SQLite Indexes & Safe Schema Migration",
+      "items": [
+        "idx_research_sessions_created_at (created_at DESC) & idx_research_sessions_user (user_id, created_at DESC).",
+        "idx_ambiguity_history_created_at (created_at DESC) & idx_ambiguity_history_user (user_id, created_at DESC).",
+        "init_history_db() runs ALTER TABLE ... ADD COLUMN user_id via _ensure_column() to preserve pre-auth legacy records under user_id='legacy_local'."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Security & Privacy Guarantees",
+      "items": [
+        "oauth_states stores SHA-256(state) alongside single-use PKCE code_verifier (deleted on consumption or after 600s TTL).",
+        "auth_sessions stores SHA-256(raw_session_token); raw token lives only inside itsdangerous signed browser cookies.",
+        "_sanitize_for_storage() removes API key / token / secret keys and scrubs AIza... substrings before persisting research JSON."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Filesystem Counterpart (uploads/)",
+      "items": [
+        "Anonymous/legacy workspace writes PDFs into uploads/.",
+        "Authenticated Google users write PDFs into uploads/user_<sha256(user_id)[:16]>/ computed by modules/auth.py:get_user_uploads_dir().",
+        "Filename collisions are avoided with sanitize_filename() and SHA-256 content hashes in modules/pdf_reader.py."
+      ]
+    }
+  ]
+}

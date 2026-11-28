@@ -1,0 +1,299 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "layout": {
+    "mode": "auto"
+  },
+  "meta": {
+    "title": "KNOWLEDGE X — System Architecture",
+    "subtitle": "AI-Powered Multi-Document Research Knowledge Assistant · 7-Layer Architecture",
+    "output": "architecture/hackathon-system-architecture.html",
+    "quality_profile": "showcase",
+    "visual_preset": "editorial"
+  },
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "1. Presentation Layer (Streamlit UI)",
+      "wraps": [
+        "ui_dashboard",
+        "ui_analysis",
+        "ui_map",
+        "ui_assistant",
+        "ui_ambiguity",
+        "ui_history",
+        "ui_profile"
+      ]
+    },
+    {
+      "kind": "security-group",
+      "label": "2. Authentication & Isolation Layer",
+      "wraps": [
+        "auth_oauth",
+        "auth_session"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "3. Backend Application Layer (Python)",
+      "wraps": [
+        "app_shell",
+        "ctrl_analysis",
+        "ctrl_assistant",
+        "ctrl_history"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "4. Document Processing Layer",
+      "wraps": [
+        "proc_pdf",
+        "proc_scanner"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "5. AI Intelligence Layer",
+      "wraps": [
+        "ai_gemini"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "6. Knowledge Representation Layer",
+      "wraps": [
+        "kg_networkx"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "7. Database & Storage Layer",
+      "wraps": [
+        "db_sqlite",
+        "fs_uploads"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "ui_dashboard",
+      "type": "frontend",
+      "label": "Dashboard UI",
+      "sublabel": "Upload, URL & Scan",
+      "tag": "PAGE",
+      "icon": "frontend",
+      "explanation": "pages/dashboard.py: Multi-PDF upload, public URL PDF import, live webcam scan, and full AI synthesis pipeline trigger."
+    },
+    {
+      "id": "ui_analysis",
+      "type": "frontend",
+      "label": "Analysis & Gaps",
+      "sublabel": "Summaries & Concepts",
+      "tag": "PAGE",
+      "icon": "frontend",
+      "explanation": "pages/knowledge_analysis.py: Structured per-paper breakdowns, common cross-document concepts, glossary, and research gap detection."
+    },
+    {
+      "id": "ui_map",
+      "type": "frontend",
+      "label": "Knowledge Map",
+      "sublabel": "Interactive Graph",
+      "tag": "PAGE",
+      "icon": "frontend",
+      "explanation": "pages/knowledge_map.py: Interactive Plotly + NetworkX visualization of papers, concepts, and research gaps."
+    },
+    {
+      "id": "ui_assistant",
+      "type": "frontend",
+      "label": "Research Chat",
+      "sublabel": "Grounded Q&A UI",
+      "tag": "PAGE",
+      "icon": "frontend",
+      "explanation": "pages/research_assistant.py: Citation-grounded question answering over uploaded PDF excerpts."
+    },
+    {
+      "id": "ui_ambiguity",
+      "type": "frontend",
+      "label": "Ambiguity UI",
+      "sublabel": "Clarify Questions",
+      "tag": "PAGE",
+      "icon": "decision",
+      "explanation": "pages/ambiguity_detector.py: Detects ambiguous queries, presents interpretations, and resolves answers."
+    },
+    {
+      "id": "ui_history",
+      "type": "frontend",
+      "label": "History UI",
+      "sublabel": "Saved Sessions",
+      "tag": "PAGE",
+      "icon": "clock",
+      "explanation": "pages/research_history.py: Browse, reload, and inspect past research analyses and ambiguity resolutions."
+    },
+    {
+      "id": "ui_profile",
+      "type": "frontend",
+      "label": "Login & Profile",
+      "sublabel": "Avatar & Account",
+      "tag": "UI",
+      "icon": "person",
+      "explanation": "app.py sidebar auth popover (Google OAuth + Email Sign In/Sign Up) and pages/profile.py."
+    },
+    {
+      "id": "auth_oauth",
+      "type": "security",
+      "label": "Auth Service",
+      "sublabel": "OAuth2 PKCE + Scrypt",
+      "tag": "AUTH",
+      "icon": "security",
+      "explanation": "modules/auth.py: Google OAuth 2.0 PKCE + OIDC ID token verification and scrypt local email/password auth."
+    },
+    {
+      "id": "auth_session",
+      "type": "security",
+      "label": "Session & Scope",
+      "sublabel": "Cookies & Isolation",
+      "tag": "SESSION",
+      "icon": "security",
+      "explanation": "itsdangerous signed kx_auth_session cookie, SQLite auth_sessions, and per-user upload/history isolation."
+    },
+    {
+      "id": "app_shell",
+      "type": "backend",
+      "label": "App Controller",
+      "sublabel": "app.py · Navigation",
+      "tag": "CORE",
+      "icon": "backend",
+      "explanation": "app.py: Initializes session state, SQLite schemas, auth lifecycle, sidebar controls, and st.navigation routing."
+    },
+    {
+      "id": "ctrl_analysis",
+      "type": "backend",
+      "label": "Analysis Engine",
+      "sublabel": "Synthesis & Gaps",
+      "tag": "MODULE",
+      "icon": "backend",
+      "explanation": "modules/ai_analysis.py + modules/research_gap.py: Structured Pydantic synthesis and gap detection."
+    },
+    {
+      "id": "ctrl_assistant",
+      "type": "backend",
+      "label": "Q&A & Ambiguity",
+      "sublabel": "RAG & Clarification",
+      "tag": "MODULE",
+      "icon": "backend",
+      "explanation": "modules/ai_analysis.py + modules/ambiguity_detector.py: Chunk retrieval, ambiguity classification, and rewriting."
+    },
+    {
+      "id": "ctrl_history",
+      "type": "backend",
+      "label": "History Manager",
+      "sublabel": "modules/history_db.py",
+      "tag": "MODULE",
+      "icon": "backend",
+      "explanation": "modules/history_db.py: Persists and scopes research_sessions and ambiguity_history per user."
+    },
+    {
+      "id": "proc_pdf",
+      "type": "backend",
+      "label": "PDF & URL Proc",
+      "sublabel": "PyMuPDF + SSRF",
+      "tag": "EXTRACT",
+      "icon": "backend",
+      "explanation": "modules/pdf_reader.py: PDF upload validation, SSRF-safe URL download, PyMuPDF text extraction, and chunking."
+    },
+    {
+      "id": "proc_scanner",
+      "type": "backend",
+      "label": "Scanner & OCR",
+      "sublabel": "WebRTC + Pillow",
+      "tag": "OCR",
+      "icon": "backend",
+      "explanation": "modules/camera_component.py + modules/ocr_scanner.py: Persistent webcam capture, blur check, Gemini OCR, and PDF assembly."
+    },
+    {
+      "id": "ai_gemini",
+      "type": "external",
+      "label": "Gemini API",
+      "sublabel": "google-genai SDK",
+      "tag": "AI CLOUD",
+      "icon": "cloud",
+      "explanation": "Google Gemini API with structured JSON schemas, OCR vision extraction, and automatic model fallback."
+    },
+    {
+      "id": "kg_networkx",
+      "type": "backend",
+      "label": "Graph & Plotly",
+      "sublabel": "NetworkX + Plotly",
+      "tag": "GRAPH",
+      "icon": "backend",
+      "explanation": "modules/knowledge_map.py: Builds concept-document-gap graph in NetworkX and renders interactive Plotly figures."
+    },
+    {
+      "id": "db_sqlite",
+      "type": "database",
+      "label": "SQLite Database",
+      "sublabel": "History & Users DB",
+      "tag": "SQLITE",
+      "icon": "database",
+      "explanation": "knowledge_x_history.db: Stores research_sessions, ambiguity_history, users, auth_sessions, oauth_states, and app_settings."
+    },
+    {
+      "id": "fs_uploads",
+      "type": "database",
+      "label": "User PDF Store",
+      "sublabel": "uploads/user_<id>",
+      "tag": "STORAGE",
+      "icon": "database",
+      "explanation": "User-isolated filesystem storage for uploaded, URL-imported, and OCR-scanned PDFs."
+    }
+  ],
+  "connections": [
+    { "from": "ui_profile", "to": "auth_oauth", "label": "Login / SignUp" },
+    { "from": "auth_oauth", "to": "auth_session", "label": "Issue cookie" },
+    { "from": "auth_session", "to": "app_shell", "label": "Active user" },
+    { "from": "app_shell", "to": "ui_dashboard", "label": "Route pages" },
+    { "from": "ui_dashboard", "to": "proc_pdf", "label": "PDF / URL" },
+    { "from": "ui_dashboard", "to": "proc_scanner", "label": "Cam / Images" },
+    { "from": "proc_scanner", "to": "proc_pdf", "label": "Searchable PDF" },
+    { "from": "proc_pdf", "to": "fs_uploads", "label": "Save PDF" },
+    { "from": "proc_scanner", "to": "ai_gemini", "label": "Vision OCR" },
+    { "from": "ui_analysis", "to": "ctrl_analysis", "label": "Run synthesis" },
+    { "from": "ctrl_analysis", "to": "ai_gemini", "label": "JSON prompt" },
+    { "from": "ui_assistant", "to": "ctrl_assistant", "label": "Ask query" },
+    { "from": "ui_ambiguity", "to": "ctrl_assistant", "label": "Clarify query" },
+    { "from": "ctrl_assistant", "to": "ai_gemini", "label": "Q&A / Classify" },
+    { "from": "ctrl_analysis", "to": "kg_networkx", "label": "Concepts & gaps" },
+    { "from": "kg_networkx", "to": "ui_map", "label": "Plotly graph" },
+    { "from": "ctrl_analysis", "to": "ctrl_history", "label": "Save session" },
+    { "from": "ctrl_assistant", "to": "ctrl_history", "label": "Save Q&A" },
+    { "from": "ctrl_history", "to": "db_sqlite", "label": "Read / Write" },
+    { "from": "ui_history", "to": "ctrl_history", "label": "Load history" },
+    { "from": "auth_session", "to": "db_sqlite", "label": "Users & tokens" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Presentation & Controllers",
+      "items": [
+        "7 Streamlit pages routed via st.navigation in app.py",
+        "In-process Python modules for PDF, OCR, AI, Graph & SQLite"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Auth & Data Isolation",
+      "items": [
+        "Optional Google OAuth 2.0 (PKCE) + Email/Password (scrypt)",
+        "Per-user uploads/user_<hash> folders & SQLite user_id scoping"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "AI & Knowledge Pipeline",
+      "items": [
+        "Google Gemini API via google-genai with Pydantic schemas",
+        "NetworkX concept-gap graph rendered with Plotly"
+      ]
+    }
+  ]
+}

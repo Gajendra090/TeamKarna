@@ -1,0 +1,368 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "layout": {
+    "mode": "auto"
+  },
+  "meta": {
+    "title": "KNOWLEDGE X — System Architecture",
+    "subtitle": "Streamlit AI Research Workspace · In-Process Python Modules, SQLite Storage & Google Cloud Integrations",
+    "output": "architecture/system-architecture.html",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "end_to_end",
+        "label": "Full System",
+        "focus": [
+          "browser_client",
+          "app_shell",
+          "workspace_pages",
+          "ingestion_ocr",
+          "ai_gateway",
+          "intelligence_engines",
+          "sqlite_db",
+          "user_uploads_fs",
+          "gemini_cloud_api"
+        ],
+        "note": "Primary research ingestion, structured AI synthesis, exploration UI, and storage."
+      },
+      {
+        "id": "auth_security",
+        "label": "Auth & Security",
+        "focus": [
+          "browser_client",
+          "app_shell",
+          "auth_service",
+          "sqlite_db",
+          "google_oauth_oidc",
+          "public_pdf_web",
+          "ingestion_ocr"
+        ],
+        "note": "Google OAuth 2.0 PKCE + OIDC verification, signed cookies, per-user storage, and URL SSRF defense."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "browser_client",
+      "type": "frontend",
+      "label": "User Browser",
+      "sublabel": "Desktop & Mobile",
+      "tag": "CLIENT",
+      "icon": "person",
+      "explanation": "Renders the dark-themed Streamlit UI, camera capture widget, and Plotly charts while persisting the signed kx_auth_session cookie via components.html."
+    },
+    {
+      "id": "app_shell",
+      "type": "frontend",
+      "label": "App Shell",
+      "sublabel": "app.py · st.navigation",
+      "tag": "UI SHELL",
+      "icon": "frontend",
+      "explanation": "Bootstraps session_state, runs _handle_google_auth_lifecycle() on every rerun, draws the top-left sidebar avatar popover, multi-PDF uploader, and Gemini model selector.",
+      "drilldowns": [
+        {
+          "href": "module-communication.html",
+          "label": "Inspect All Pages & Modules",
+          "diagram_type": "architecture"
+        },
+        {
+          "href": "architecture-report.html",
+          "label": "Open Full Architecture Report"
+        }
+      ]
+    },
+    {
+      "id": "workspace_pages",
+      "type": "frontend",
+      "label": "7 Pages",
+      "sublabel": "pages/*.py",
+      "tag": "PAGES (7)",
+      "icon": "frontend",
+      "explanation": "Seven specialized Streamlit views sharing st.session_state and delegating domain logic cleanly to backend Python modules.",
+      "drilldowns": [
+        {
+          "href": "user-workflow.html",
+          "label": "User Research Workflow",
+          "diagram_type": "workflow"
+        },
+        {
+          "href": "module-communication.html",
+          "label": "Page-to-Module Matrix",
+          "diagram_type": "architecture"
+        }
+      ]
+    },
+    {
+      "id": "auth_service",
+      "type": "security",
+      "label": "OAuth Engine",
+      "sublabel": "auth.py · PKCE S256",
+      "tag": "SECURITY",
+      "icon": "security",
+      "explanation": "Generates PKCE S256 challenges, verifies Google OIDC ID tokens via google-auth, mints 7-day SQLite-backed session cookies, and partitions per-user upload folders.",
+      "drilldowns": [
+        {
+          "href": "seq-google-oauth.html",
+          "label": "Google OAuth 2.0 Sequence",
+          "diagram_type": "sequence"
+        },
+        {
+          "href": "api-architecture.html",
+          "label": "OAuth & API Boundaries",
+          "diagram_type": "architecture"
+        }
+      ]
+    },
+    {
+      "id": "ingestion_ocr",
+      "type": "backend",
+      "label": "Ingestion & OCR",
+      "sublabel": "pdf_reader & ocr_scanner",
+      "tag": "INGESTION",
+      "icon": "backend",
+      "explanation": "Extracts text/metadata with PyMuPDF, fetches public PDF URLs behind a 5-hop DNS/IP SSRF firewall (25MB cap), checks scan sharpness via NumPy Laplacian variance, and builds invisible-text searchable PDFs via Gemini Vision.",
+      "drilldowns": [
+        {
+          "href": "data-flow.html",
+          "label": "Multi-Channel Data Flow",
+          "diagram_type": "dataflow"
+        },
+        {
+          "href": "api-architecture.html",
+          "label": "External API & SSRF Firewall",
+          "diagram_type": "architecture"
+        }
+      ]
+    },
+    {
+      "id": "intelligence_engines",
+      "type": "backend",
+      "label": "AI Engines",
+      "sublabel": "gap, kmap, ambiguity",
+      "tag": "ENGINES",
+      "icon": "backend",
+      "explanation": "Produces cross-paper concept synthesis, Plotly coverage heatmaps, NetworkX knowledge graphs (AI semantic or PyMuPDF fallback), and 3-way query disambiguation with clarifying rewrites.",
+      "drilldowns": [
+        {
+          "href": "seq-ambiguity-detector.html",
+          "label": "Ambiguity Detector Sequence",
+          "diagram_type": "sequence"
+        },
+        {
+          "href": "seq-ai-synthesis-pipeline.html",
+          "label": "Synthesis Pipeline Sequence",
+          "diagram_type": "sequence"
+        }
+      ]
+    },
+    {
+      "id": "sqlite_db",
+      "type": "database",
+      "label": "SQLite DB",
+      "sublabel": "5 tables, 4 indexes",
+      "tag": "SQLITE",
+      "icon": "database",
+      "explanation": "Persists research_sessions and ambiguity_history scoped by user_id after secret sanitization, plus auth_sessions, oauth_states, and app_settings.",
+      "drilldowns": [
+        {
+          "href": "database-erd.html",
+          "label": "Full SQLite Schema ERD"
+        }
+      ]
+    },
+    {
+      "id": "user_uploads_fs",
+      "type": "database",
+      "label": "PDF Store",
+      "sublabel": "uploads/user_<hash>/",
+      "tag": "FILESYSTEM",
+      "icon": "database",
+      "explanation": "Stores raw, URL-fetched, and searchable OCR PDFs on disk inside legacy or SHA-256 user-isolated directories."
+    },
+    {
+      "id": "ai_gateway",
+      "type": "backend",
+      "label": "Gemini Gateway",
+      "sublabel": "ai_analysis.py",
+      "tag": "AI GATEWAY",
+      "icon": "backend",
+      "explanation": "Centralizes API key resolution, secret redaction, Pydantic response_schema enforcement, 90s timeout, retry_attempts=2, daily quota tracking, and automatic model fallback.",
+      "drilldowns": [
+        {
+          "href": "api-architecture.html",
+          "label": "API & Model Fallback Topology",
+          "diagram_type": "architecture"
+        },
+        {
+          "href": "seq-ai-synthesis-pipeline.html",
+          "label": "AI Synthesis Pipeline Sequence",
+          "diagram_type": "sequence"
+        }
+      ]
+    },
+    {
+      "id": "google_oauth_oidc",
+      "type": "external",
+      "label": "Google OAuth",
+      "sublabel": "accounts.google.com",
+      "tag": "IDENTITY",
+      "icon": "cloud",
+      "explanation": "External Google identity provider handling consent redirects, authorization code token exchange, and public JWKS ID-token verification.",
+      "drilldowns": [
+        {
+          "href": "api-architecture.html",
+          "label": "External API Integration View",
+          "diagram_type": "architecture"
+        }
+      ]
+    },
+    {
+      "id": "public_pdf_web",
+      "type": "external",
+      "label": "PDF Hosts",
+      "sublabel": "External HTTP/HTTPS",
+      "tag": "WEB PDF",
+      "icon": "external",
+      "explanation": "Third-party academic or public PDF servers accessed only when DNS resolves strictly to public IP space and magic bytes match %PDF-."
+    },
+    {
+      "id": "gemini_cloud_api",
+      "type": "cloud",
+      "label": "Gemini API",
+      "sublabel": "google-genai SDK",
+      "tag": "LLM + VISION",
+      "icon": "cloud",
+      "explanation": "Google Gemini models (default gemini-3.6-flash with automatic fallback chain) powering structured synthesis, QA, ambiguity JSON, and scanned-page OCR.",
+      "drilldowns": [
+        {
+          "href": "api-architecture.html",
+          "label": "Gemini SDK & Fallback Design",
+          "diagram_type": "architecture"
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Single-Process Python / Streamlit Monolith",
+      "wraps": [
+        "app_shell",
+        "workspace_pages",
+        "auth_service",
+        "ingestion_ocr",
+        "ai_gateway",
+        "intelligence_engines",
+        "sqlite_db",
+        "user_uploads_fs"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "browser_client",
+      "to": "app_shell",
+      "label": "HTTPS / WebSocket UI"
+    },
+    {
+      "from": "app_shell",
+      "to": "workspace_pages",
+      "label": "st.navigation()"
+    },
+    {
+      "from": "app_shell",
+      "to": "auth_service",
+      "label": "OAuth & cookie",
+      "variant": "security"
+    },
+    {
+      "from": "workspace_pages",
+      "to": "ingestion_ocr",
+      "label": "PDF, URL & Scan"
+    },
+    {
+      "from": "workspace_pages",
+      "to": "intelligence_engines",
+      "label": "Gaps, Map & Ambiguity"
+    },
+    {
+      "from": "workspace_pages",
+      "to": "sqlite_db",
+      "label": "User-scoped CRUD"
+    },
+    {
+      "from": "workspace_pages",
+      "to": "ai_gateway",
+      "label": "Direct QA & Synthesis"
+    },
+    {
+      "from": "ingestion_ocr",
+      "to": "ai_gateway",
+      "label": "Vision OCR"
+    },
+    {
+      "from": "intelligence_engines",
+      "to": "ai_gateway",
+      "label": "Schema JSON calls"
+    },
+    {
+      "from": "auth_service",
+      "to": "sqlite_db",
+      "label": "sessions & states",
+      "variant": "security"
+    },
+    {
+      "from": "ingestion_ocr",
+      "to": "user_uploads_fs",
+      "label": "Save/delete PDFs"
+    },
+    {
+      "from": "auth_service",
+      "to": "google_oauth_oidc",
+      "label": "OAuth2 / OIDC",
+      "variant": "security"
+    },
+    {
+      "from": "ai_gateway",
+      "to": "gemini_cloud_api",
+      "label": "google-genai + fallback",
+      "variant": "emphasis"
+    },
+    {
+      "from": "ingestion_ocr",
+      "to": "public_pdf_web",
+      "label": "SSRF-checked GET",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Architecture Summary",
+      "items": [
+        "Pure Python Streamlit 1.45+ monolith running in a single process with st.navigation(position='sidebar').",
+        "No separate REST API server or message queue: frontend pages invoke backend modules directly via typed dataclasses/Pydantic models.",
+        "Offline evaluation harness in evaluation/ (build_dataset.py, run_ambiguity_eval.py) benchmarks the ambiguity detector."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Security & Isolation Controls",
+      "items": [
+        "Google OAuth 2.0 Authorization Code + PKCE S256, OIDC ID-token verification, and signed 7-day SQLite session cookies.",
+        "Every saved analysis/ambiguity record and upload directory is partitioned by authenticated user_id or legacy_local.",
+        "URL ingestion blocks private/loopback/link-local/reserved/NAT64 IPs across up to 5 HTTP redirects; secrets are scrubbed before storage."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Diagram Directory",
+      "items": [
+        "Explore sibling interactive views: module-communication.html, api-architecture.html, database-erd.html, data-flow.html, user-workflow.html.",
+        "Feature sequences: seq-google-oauth.html, seq-ai-synthesis-pipeline.html, seq-ambiguity-detector.html.",
+        "Static Python metrics workbench: code-analysis/analysis/repo.analysis.html · Full narrative: architecture-report.html."
+      ]
+    }
+  ]
+}

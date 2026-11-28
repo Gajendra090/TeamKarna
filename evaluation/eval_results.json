@@ -1,0 +1,1663 @@
+{
+  "summary": {
+    "total_items": 100,
+    "valid_evaluated": 100,
+    "api_errors": 0,
+    "binary_clarification_detection": {
+      "tp": 65,
+      "fp": 1,
+      "fn": 5,
+      "tn": 29,
+      "precision": 0.9848,
+      "recall": 0.9286,
+      "f1_score": 0.9559,
+      "clear_false_positive_rate": 0.0333
+    },
+    "three_class_accuracy": 0.8,
+    "per_class_metrics": {
+      "Clear": {
+        "precision": 0.8529,
+        "recall": 0.9667,
+        "f1_score": 0.9062,
+        "support": 30
+      },
+      "Ambiguous": {
+        "precision": 0.8049,
+        "recall": 0.825,
+        "f1_score": 0.8148,
+        "support": 40
+      },
+      "Insufficient Context": {
+        "precision": 0.72,
+        "recall": 0.6,
+        "f1_score": 0.6545,
+        "support": 30
+      }
+    },
+    "confusion_matrix": {
+      "Clear": {
+        "Clear": 29,
+        "Ambiguous": 1,
+        "Insufficient Context": 0
+      },
+      "Ambiguous": {
+        "Clear": 0,
+        "Ambiguous": 33,
+        "Insufficient Context": 7
+      },
+      "Insufficient Context": {
+        "Clear": 5,
+        "Ambiguous": 7,
+        "Insufficient Context": 18
+      }
+    },
+    "resolution_accuracy": 0.9,
+    "resolution_evaluated_count": 70,
+    "final_answer_correctness": 0.97,
+    "final_answer_correctness_by_category": {
+      "Clear": 0.9667,
+      "Ambiguous": 0.95,
+      "Insufficient Context": 1.0
+    },
+    "model": "gemini-3.5-flash-lite",
+    "elapsed_seconds": 13.87
+  },
+  "items": [
+    {
+      "id": "AMB-01",
+      "expected": "Ambiguous",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "According to the document 'Informed and Uninformed Graph Search Strategies', how do A* Search and Greedy Best-First Search compare in terms of optimality?",
+      "resolution_ok": true,
+      "answer_ok": false,
+      "cited_files": [],
+      "error": "Rate limit or quota exceeded for 'gemini-3.1-flash-lite' (HTTP 429 RESOURCE_EXHAUSTED). Suggested wait: 25.533811309s.. Details: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. "
+    },
+    {
+      "id": "AMB-02",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "Which index",
+        "faster"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "Based on paper2_db_normalization.pdf, how do B+ Tree indexes compare to Hash indexes in terms of speed for 1,000-row range scans?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-03",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "the threshold"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "What is the cosine similarity threshold used for semantic chunking in paper3_rag_systems.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-04",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "the two approaches"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "What are the differences between Strict 2PL and MVCC concurrency control mechanisms as discussed in paper2_db_normalization.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-05",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "it"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "How does the Simplified Memory-Bounded A* (SMA*) algorithm handle memory limits according to paper1_search_algorithms.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-06",
+      "expected": "Ambiguous",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What is the primary limitation of Boyce-Codd Normal Form (BCNF) decomposition when applied to analytical database workloads, as discussed in the document 'Relational Database Normalization and Indexing'?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-07",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "third form"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "What is the definition and purpose of the Third Normal Form (3NF) as described in the document regarding relational database normalization?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-08",
+      "expected": "Ambiguous",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "How much query latency overhead does Cross-Encoder reranking add in Retrieval-Augmented Generation systems as described in paper3_rag_systems.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-09",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "the heuristic is wrong"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "In the context of A* search as described in paper1_search_algorithms.pdf, what are the consequences for the algorithm's optimality if the heuristic function h(n) is inadmissible and overestimates the cost to the goal?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-10",
+      "expected": "Ambiguous",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "According to paper3_rag_systems.pdf, which retrieval method achieved the highest Recall@5 score when evaluated on the 500 multi-hop QA benchmark?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-11",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "complexity of search"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "What is the space complexity of the Iterative Deepening Depth-First Search (IDDFS) algorithm as described in the document 'Informed and Uninformed Graph Search Strategies'?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-12",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "the benchmark"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "What are the key findings and performance characteristics of the 10-million-row OLTP index benchmark described in the document titled 'Relational Database Normalization and Indexing'?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-13",
+      "expected": "Ambiguous",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Why does performance drop?",
+      "resolution_ok": false,
+      "answer_ok": false,
+      "cited_files": [
+        "paper3_rag_systems.pdf",
+        "paper2_db_normalization.pdf",
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-14",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "the fusion formula"
+      ],
+      "interpretations_count": 2,
+      "resolved_question": "What is the Reciprocal Rank Fusion (RRF) equation and how does the constant k function in paper3_rag_systems.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-15",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "consistency"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "How is heuristic consistency (monotonicity) defined for A* graph search in paper1_search_algorithms.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-16",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "What is the tradeoff?"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "What is the tradeoff between the Third Normal Form (3NF) and Boyce-Codd Normal Form (BCNF) as discussed in paper2_db_normalization.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf",
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-17",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "chunking"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "How do fixed-size chunking and semantic chunking compare in retrieval-augmented generation systems, as described in paper3_rag_systems.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-18",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "Which variant"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "How does the space complexity of standard A* search compare to Iterative Deepening A* (IDA*) as described in the document 'Informed and Uninformed Graph Search Strategies'?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-19",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "It",
+        "guarantee"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "What specific properties or outcomes does the Two-Phase Locking (2PL) protocol guarantee according to the document 'Relational Database Normalization and Indexing'?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-20",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "the baseline"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "What was the hallucination rate of the zero-retrieval LLM baseline discussed in paper3_rag_systems.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-21",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "the hybrid strategy"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "How does hybrid retrieval combine BM25 and dense vectors in the context of retrieval-augmented generation systems as described in paper3_rag_systems.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-22",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "they",
+        "cascading issues"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "Which locking protocol prevents cascading aborts in relational database normalization and indexing?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-23",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "dynamic changes"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "How do the A* and IDA* search algorithms perform when edge weights in a graph are modified dynamically?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-24",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "the two stages"
+      ],
+      "interpretations_count": 2,
+      "resolved_question": "How many candidates are retrieved in stage 1 and kept after Cross-Encoder reranking in stage 2 in paper3_rag_systems.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-25",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "normal form",
+        "better"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "How do the Third Normal Form (3NF) and Boyce-Codd Normal Form (BCNF) compare regarding dependency preservation and redundancy according to paper2_db_normalization.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-26",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "cost for B"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "In the context of the benchmark grid described in 'Informed and Uninformed Graph Search Strategies', what are the specific values for the path cost g(B), the heuristic estimate h(B), and the total evaluation function f(B) for neighbor node B?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-27",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "this approach"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "How does the implementation of strict citation prompts applied to reranked top-5 passages reduce the hallucination rate in retrieval-augmented generation systems, as described in paper3_rag_systems.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-28",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "the two search methods"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "Based on paper1_search_algorithms.pdf, what are the key differences between Breadth-First Search (BFS) and Depth-First Search (DFS) regarding their space complexity and completeness?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-29",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "blocking"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "How does Multi-Version Concurrency Control (MVCC) avoid read-write blocking compared to traditional locking methods, as discussed in paper2_db_normalization.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-30",
+      "expected": "Ambiguous",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "How does BM25 sparse retrieval compare to dense retrieval in retrieval-augmented generation systems, based on paper3_rag_systems.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf",
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-31",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "the overlap"
+      ],
+      "interpretations_count": 2,
+      "resolved_question": "What chunk overlap size is used for fixed-size chunking in the paper titled Retrieval-Augmented Generation Evaluation and Reranking?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-32",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "scalability limits"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "What is the memory scalability limit of standard A* search as detailed in paper1_search_algorithms.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-33",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "the first one"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "What are the specific requirements for a database to satisfy First Normal Form (1NF) as described in the document 'Relational Database Normalization and Indexing'?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-34",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "it"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "Why is Greedy Best-First Search not optimal according to paper1_search_algorithms.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-35",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "distance"
+      ],
+      "interpretations_count": 2,
+      "resolved_question": "What specific similarity metric is utilized for dense retrieval within the context of Retrieval-Augmented Generation as described in paper3_rag_systems.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-36",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "writes"
+      ],
+      "interpretations_count": 2,
+      "resolved_question": "What happens to write latency when secondary indexes are added in relational databases?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-37",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "there"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "How does IDA* prune branches in the context of informed and uninformed graph search strategies as described in paper1_search_algorithms.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-38",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "failure modes"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "What retrieval-augmented generation (RAG) failure modes are described in Section 3 of paper3_rag_systems.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-39",
+      "expected": "Ambiguous",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Which isolation level does MVCC enable for non-blocking reads in paper2_db_normalization.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "AMB-40",
+      "expected": "Ambiguous",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "memory bounds"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "How do IDA* and SMA* manage memory bounds and space complexity according to paper1_search_algorithms.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-01",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "In paper1_search_algorithms.pdf, what data structure does Breadth-First Search (BFS) use?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-02",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What are the time and space complexities of Breadth-First Search (BFS) in paper1_search_algorithms.pdf?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-03",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Under what condition is Breadth-First Search optimal according to paper1_search_algorithms.pdf?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-04",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What is the space complexity of Depth-First Search (DFS) in paper1_search_algorithms.pdf?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-05",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "How does Iterative Deepening Depth-First Search (IDDFS) reduce memory usage compared to BFS?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-06",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What formula does A* Search use to evaluate f(n) in paper1_search_algorithms.pdf?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-07",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What defines an admissible heuristic h(n) in paper1_search_algorithms.pdf?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-08",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What additional property beyond admissibility does graph-search A* require for optimality?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-09",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "In the example benchmark grid in paper1_search_algorithms.pdf, why does A* expand neighbor A before neighbor B?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-10",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "How does Simplified Memory-Bounded A* (SMA*) handle running out of memory?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-11",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What requirement must values satisfy for a relation to be in First Normal Form (1NF)?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-12",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What type of functional dependency is eliminated by Second Normal Form (2NF)?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-13",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "How does Third Normal Form (3NF) handle transitive dependencies in paper2_db_normalization.pdf?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-14",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What is the key difference between 3NF and Boyce-Codd Normal Form (BCNF) in paper2_db_normalization.pdf?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-15",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "In paper2_db_normalization.pdf, why can Hash indexes not accelerate SQL BETWEEN range predicates?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-16",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What point lookup latency did the B+ Tree index achieve on the 10-million-row OLTP benchmark?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-17",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "By what percentage did each extra secondary index increase write latency in the OLTP benchmark?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-18",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What do the four letters in ACID stand for in paper2_db_normalization.pdf?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-19",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "How does Multi-Version Concurrency Control (MVCC) avoid read-write blocking?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-20",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Why is controlled denormalization sometimes used in analytical data warehouses according to paper2_db_normalization.pdf?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-21",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What chunk size and overlap are used for fixed-size chunking in paper3_rag_systems.pdf?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-22",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What cosine similarity threshold is used for semantic chunking in paper3_rag_systems.pdf?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-23",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What smoothing constant k is used in the Reciprocal Rank Fusion (RRF) formula in paper3_rag_systems.pdf?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-24",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What Recall@5 score did Hybrid RRF with Cross-Encoder reranking achieve on the 500 multi-hop QA benchmark?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-25",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "How much additional latency per query does Cross-Encoder reranking add in paper3_rag_systems.pdf?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-26",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "By how much did strict citation prompts over reranked top-5 passages reduce the hallucination rate compared to the zero-retrieval baseline?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-27",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Compare the 10-million-row OLTP point lookup latency of B+ Tree versus Hash indexes in paper2_db_normalization.pdf.",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-28",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Compare the Recall@5 scores of BM25 alone versus Hybrid RRF alone in paper3_rag_systems.pdf.",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-29",
+      "expected": "Clear",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "its"
+      ],
+      "interpretations_count": 4,
+      "resolved_question": "What is the space complexity of the Iterative Deepening A* (IDA*) algorithm as described in the document 'Informed and Uninformed Graph Search Strategies'?",
+      "resolution_ok": null,
+      "answer_ok": false,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CLR-30",
+      "expected": "Clear",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "How many dimensions do those vectors have?",
+      "resolution_ok": null,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-01",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Which database index type should I choose for running frequent SQL BETWEEN range scans on a table with 10 million rows, as discussed in paper2_db_normalization.pdf?",
+      "resolution_ok": false,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf",
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-02",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Is it feasible to deploy a Cross-Encoder reranking model as described in paper3_rag_systems.pdf while maintaining a strict latency budget of under 20 ms per query without the use of distillation?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-03",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "In the context of a read-heavy analytical data warehousing environment, what are the performance trade-offs between normalizing a schema to BCNF versus utilizing denormalization to mitigate multi-table join overhead as discussed in paper2_db_normalization.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf",
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-04",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Using the example benchmark grid provided in 'Informed and Uninformed Graph Search Strategies', what is the f(n) value for Neighbor A, calculated as the sum of its path cost g(n) and heuristic estimate h(n)?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-05",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Which A*-style search algorithm from paper1_search_algorithms.pdf is best suited to fit a strict fixed memory budget M?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-06",
+      "expected": "Insufficient Context",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "cheapest path"
+      ],
+      "interpretations_count": 2,
+      "resolved_question": "Is Breadth-First Search (BFS) guaranteed to find the path with the lowest total edge weight in a graph where edges have varying positive weights?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-07",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Will standard A* work without replanning for a robot operating in an environment with dynamic edge weights that change during execution, as discussed in paper1_search_algorithms.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-08",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "this"
+      ],
+      "interpretations_count": 0,
+      "resolved_question": "Does the relation defined in paper2_db_normalization.pdf satisfy Third Normal Form when it contains a nontrivial functional dependency X -> A where X is not a superkey and A is a non-prime attribute?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-09",
+      "expected": "Insufficient Context",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "indexes"
+      ],
+      "interpretations_count": 2,
+      "resolved_question": "What is the impact on write latency when adding one extra secondary index to an OLTP table, as evaluated in the benchmark from paper2_db_normalization.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-10",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Based on paper3_rag_systems.pdf, which retrieval pipeline provides the highest Recall@5 while operating within an 85 ms extra latency constraint per query for our QA system?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-11",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Is Depth-First Search a safe and effective algorithm for exploring a state space that contains infinite paths, as described in the context of informed and uninformed graph search strategies?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-12",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Should we use BM25 or dense retrieval for our corpus when our queries frequently search for exact acronyms and rare identifiers, as discussed in paper3_rag_systems.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-13",
+      "expected": "Insufficient Context",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "2PL"
+      ],
+      "interpretations_count": 2,
+      "resolved_question": "Does the basic Two-Phase Locking (2PL) protocol, as described in paper2_db_normalization.pdf, prevent cascading aborts in a database scheduler?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-14",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Is tree-search A* optimal when using a heuristic h(n) that can sometimes overestimate the true cost to the goal, as discussed in paper1_search_algorithms.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-15",
+      "expected": "Insufficient Context",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What happens if my relation still has partial dependencies?",
+      "resolution_ok": false,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-16",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Does graph-search A* guarantee optimality when using an admissible heuristic that is not consistent, as discussed in paper1_search_algorithms.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-17",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Based on the principles of relational database indexing discussed in paper2_db_normalization.pdf, is Hash indexing the optimal choice for a workload consisting primarily of exact equality lookups on a dataset of 10 million rows?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf",
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-18",
+      "expected": "Insufficient Context",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "How many chunks should we pass"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "Based on the two-stage RRF and Cross-Encoder architecture described in paper3_rag_systems.pdf, what is the recommended number of document chunks to pass from the retrieval stage to the reranking stage to optimize performance?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-19",
+      "expected": "Insufficient Context",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "preserve all of our functional dependencies"
+      ],
+      "interpretations_count": 2,
+      "resolved_question": "Does the formal BCNF decomposition guarantee the preservation of all functional dependencies according to paper2_db_normalization.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-20",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What is the expected hallucination rate for a zero-retrieval LLM baseline as discussed in paper3_rag_systems.pdf?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-21",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Under the Multi-Version Concurrency Control (MVCC) with Snapshot Isolation setup described in paper2_db_normalization.pdf, can readers block writers?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-22",
+      "expected": "Insufficient Context",
+      "predicted": "Clear",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Which algorithm gives BFS completeness without exponential space?",
+      "resolution_ok": false,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-23",
+      "expected": "Insufficient Context",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [
+        "fixed chunking",
+        "semantic chunking",
+        "rely on"
+      ],
+      "interpretations_count": 3,
+      "resolved_question": "In the context of the RAG system evaluation framework described in paper3_rag_systems.pdf, what are the performance implications of using semantic chunking based on a cosine similarity threshold of 0.72 compared to traditional fixed-size chunking?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-24",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Based on the principles in paper2_db_normalization.pdf, what is the expected performance impact of performing a 1,000-row range scan on a 10-million-row table when using a Hash index?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-25",
+      "expected": "Insufficient Context",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Is Greedy Best-First Search suitable if I need optimal paths?",
+      "resolution_ok": false,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-26",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Based on the dense vector retrieval architecture described in paper3_rag_systems.pdf, what is the expected Recall@5 performance for a standard RAG benchmark workload?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-27",
+      "expected": "Insufficient Context",
+      "predicted": "Insufficient Context",
+      "model_used": "gemini-3.5-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Based on the criteria for First Normal Form (1NF) defined in 'Relational Database Normalization and Indexing', does a table containing columns with comma-separated lists or repeating groups instead of atomic values satisfy the requirements for 1NF?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper2_db_normalization.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-28",
+      "expected": "Insufficient Context",
+      "predicted": "Ambiguous",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [
+        "its accuracy",
+        "my context window"
+      ],
+      "interpretations_count": 2,
+      "resolved_question": "According to the RAG failure modes discussed in paper3_rag_systems.pdf, does the accuracy of the retrieval-augmented generation system decrease when the top-5 retrieved chunks exceed the available context window capacity?",
+      "resolution_ok": true,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-29",
+      "expected": "Insufficient Context",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "What is the f-value at the start node?",
+      "resolution_ok": false,
+      "answer_ok": true,
+      "cited_files": [
+        "paper1_search_algorithms.pdf"
+      ],
+      "error": ""
+    },
+    {
+      "id": "CTX-30",
+      "expected": "Insufficient Context",
+      "predicted": "Clear",
+      "model_used": "gemini-3.1-flash-lite",
+      "unclear_phrases": [],
+      "interpretations_count": 0,
+      "resolved_question": "Can I combine sparse and dense rankings without training a neural scorer?",
+      "resolution_ok": false,
+      "answer_ok": true,
+      "cited_files": [
+        "paper3_rag_systems.pdf"
+      ],
+      "error": ""
+    }
+  ]
+}

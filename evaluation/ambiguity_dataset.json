@@ -1,0 +1,1353 @@
+[
+  {
+    "id": "CLR-01",
+    "category": "Clear",
+    "question": "In paper1_search_algorithms.pdf, what data structure does Breadth-First Search (BFS) use?",
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "fifo",
+      "queue"
+    ]
+  },
+  {
+    "id": "CLR-02",
+    "category": "Clear",
+    "question": "What are the time and space complexities of Breadth-First Search (BFS) in paper1_search_algorithms.pdf?",
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "b^d"
+    ]
+  },
+  {
+    "id": "CLR-03",
+    "category": "Clear",
+    "question": "Under what condition is Breadth-First Search optimal according to paper1_search_algorithms.pdf?",
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "step cost",
+      "equal"
+    ]
+  },
+  {
+    "id": "CLR-04",
+    "category": "Clear",
+    "question": "What is the space complexity of Depth-First Search (DFS) in paper1_search_algorithms.pdf?",
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "b*m",
+      "bm"
+    ]
+  },
+  {
+    "id": "CLR-05",
+    "category": "Clear",
+    "question": "How does Iterative Deepening Depth-First Search (IDDFS) reduce memory usage compared to BFS?",
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "b*d",
+      "depth"
+    ]
+  },
+  {
+    "id": "CLR-06",
+    "category": "Clear",
+    "question": "What formula does A* Search use to evaluate f(n) in paper1_search_algorithms.pdf?",
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "g(n)",
+      "h(n)"
+    ]
+  },
+  {
+    "id": "CLR-07",
+    "category": "Clear",
+    "question": "What defines an admissible heuristic h(n) in paper1_search_algorithms.pdf?",
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "overestimate"
+    ]
+  },
+  {
+    "id": "CLR-08",
+    "category": "Clear",
+    "question": "What additional property beyond admissibility does graph-search A* require for optimality?",
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "consistency",
+      "monotonicity"
+    ]
+  },
+  {
+    "id": "CLR-09",
+    "category": "Clear",
+    "question": "In the example benchmark grid in paper1_search_algorithms.pdf, why does A* expand neighbor A before neighbor B?",
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "6",
+      "8"
+    ]
+  },
+  {
+    "id": "CLR-10",
+    "category": "Clear",
+    "question": "How does Simplified Memory-Bounded A* (SMA*) handle running out of memory?",
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "leaf",
+      "highest"
+    ]
+  },
+  {
+    "id": "CLR-11",
+    "category": "Clear",
+    "question": "What requirement must values satisfy for a relation to be in First Normal Form (1NF)?",
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "atomic"
+    ]
+  },
+  {
+    "id": "CLR-12",
+    "category": "Clear",
+    "question": "What type of functional dependency is eliminated by Second Normal Form (2NF)?",
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "partial"
+    ]
+  },
+  {
+    "id": "CLR-13",
+    "category": "Clear",
+    "question": "How does Third Normal Form (3NF) handle transitive dependencies in paper2_db_normalization.pdf?",
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "superkey",
+      "prime"
+    ]
+  },
+  {
+    "id": "CLR-14",
+    "category": "Clear",
+    "question": "What is the key difference between 3NF and Boyce-Codd Normal Form (BCNF) in paper2_db_normalization.pdf?",
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "superkey"
+    ]
+  },
+  {
+    "id": "CLR-15",
+    "category": "Clear",
+    "question": "In paper2_db_normalization.pdf, why can Hash indexes not accelerate SQL BETWEEN range predicates?",
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "range"
+    ]
+  },
+  {
+    "id": "CLR-16",
+    "category": "Clear",
+    "question": "What point lookup latency did the B+ Tree index achieve on the 10-million-row OLTP benchmark?",
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "1.8"
+    ]
+  },
+  {
+    "id": "CLR-17",
+    "category": "Clear",
+    "question": "By what percentage did each extra secondary index increase write latency in the OLTP benchmark?",
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "18"
+    ]
+  },
+  {
+    "id": "CLR-18",
+    "category": "Clear",
+    "question": "What do the four letters in ACID stand for in paper2_db_normalization.pdf?",
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "atomicity",
+      "consistency",
+      "isolation",
+      "durability"
+    ]
+  },
+  {
+    "id": "CLR-19",
+    "category": "Clear",
+    "question": "How does Multi-Version Concurrency Control (MVCC) avoid read-write blocking?",
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "snapshot"
+    ]
+  },
+  {
+    "id": "CLR-20",
+    "category": "Clear",
+    "question": "Why is controlled denormalization sometimes used in analytical data warehouses according to paper2_db_normalization.pdf?",
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "join"
+    ]
+  },
+  {
+    "id": "CLR-21",
+    "category": "Clear",
+    "question": "What chunk size and overlap are used for fixed-size chunking in paper3_rag_systems.pdf?",
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "512",
+      "64"
+    ]
+  },
+  {
+    "id": "CLR-22",
+    "category": "Clear",
+    "question": "What cosine similarity threshold is used for semantic chunking in paper3_rag_systems.pdf?",
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "0.72"
+    ]
+  },
+  {
+    "id": "CLR-23",
+    "category": "Clear",
+    "question": "What smoothing constant k is used in the Reciprocal Rank Fusion (RRF) formula in paper3_rag_systems.pdf?",
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "60"
+    ]
+  },
+  {
+    "id": "CLR-24",
+    "category": "Clear",
+    "question": "What Recall@5 score did Hybrid RRF with Cross-Encoder reranking achieve on the 500 multi-hop QA benchmark?",
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "0.89"
+    ]
+  },
+  {
+    "id": "CLR-25",
+    "category": "Clear",
+    "question": "How much additional latency per query does Cross-Encoder reranking add in paper3_rag_systems.pdf?",
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "85"
+    ]
+  },
+  {
+    "id": "CLR-26",
+    "category": "Clear",
+    "question": "By how much did strict citation prompts over reranked top-5 passages reduce the hallucination rate compared to the zero-retrieval baseline?",
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "24.5",
+      "4.2"
+    ]
+  },
+  {
+    "id": "CLR-27",
+    "category": "Clear",
+    "question": "Compare the 10-million-row OLTP point lookup latency of B+ Tree versus Hash indexes in paper2_db_normalization.pdf.",
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "1.8",
+      "0.6"
+    ]
+  },
+  {
+    "id": "CLR-28",
+    "category": "Clear",
+    "question": "Compare the Recall@5 scores of BM25 alone versus Hybrid RRF alone in paper3_rag_systems.pdf.",
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "0.61",
+      "0.81"
+    ]
+  },
+  {
+    "id": "CLR-29",
+    "category": "Clear",
+    "question": "What is its space complexity?",
+    "chat_history": [
+      {
+        "role": "user",
+        "content": "Explain Iterative Deepening A* (IDA*) from paper1_search_algorithms.pdf."
+      }
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "b*d"
+    ]
+  },
+  {
+    "id": "CLR-30",
+    "category": "Clear",
+    "question": "How many dimensions do those vectors have?",
+    "chat_history": [
+      {
+        "role": "user",
+        "content": "How does dense retrieval encode queries and chunks in paper3_rag_systems.pdf?"
+      }
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "768"
+    ]
+  },
+  {
+    "id": "AMB-01",
+    "category": "Ambiguous",
+    "question": "Which algorithm is better?",
+    "expected_unclear_hint": "better",
+    "simulated_clarification": "Compare A* Search vs Greedy Best-First Search for optimality in paper1_search_algorithms.pdf.",
+    "expected_resolved_keywords": [
+      "a*",
+      "greedy",
+      "optimal"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "optimal"
+    ]
+  },
+  {
+    "id": "AMB-02",
+    "category": "Ambiguous",
+    "question": "Which index is faster?",
+    "expected_unclear_hint": "faster",
+    "simulated_clarification": "Compare B+ Tree vs Hash index for 1,000-row range scans in paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "b+ tree",
+      "hash",
+      "range"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "14.2",
+      "420"
+    ]
+  },
+  {
+    "id": "AMB-03",
+    "category": "Ambiguous",
+    "question": "Explain the threshold.",
+    "expected_unclear_hint": "threshold",
+    "simulated_clarification": "I mean the cosine similarity threshold used for semantic chunking in paper3_rag_systems.pdf.",
+    "expected_resolved_keywords": [
+      "semantic chunking",
+      "threshold"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "0.72"
+    ]
+  },
+  {
+    "id": "AMB-04",
+    "category": "Ambiguous",
+    "question": "Compare the two approaches.",
+    "expected_unclear_hint": "two approaches",
+    "simulated_clarification": "Compare Strict 2PL vs MVCC concurrency control in paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "2pl",
+      "mvcc"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "snapshot",
+      "lock"
+    ]
+  },
+  {
+    "id": "AMB-05",
+    "category": "Ambiguous",
+    "question": "How does it handle memory limits?",
+    "expected_unclear_hint": "it",
+    "simulated_clarification": "I am asking about Simplified Memory-Bounded A* (SMA*) in paper1_search_algorithms.pdf.",
+    "expected_resolved_keywords": [
+      "sma*"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "leaf",
+      "highest"
+    ]
+  },
+  {
+    "id": "AMB-06",
+    "category": "Ambiguous",
+    "question": "What is the main limitation?",
+    "expected_unclear_hint": "limitation",
+    "simulated_clarification": "What is the limitation of BCNF decomposition in analytical workloads in paper2_db_normalization.pdf?",
+    "expected_resolved_keywords": [
+      "bcnf",
+      "limitation"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "join"
+    ]
+  },
+  {
+    "id": "AMB-07",
+    "category": "Ambiguous",
+    "question": "Explain the third form.",
+    "expected_unclear_hint": "third form",
+    "simulated_clarification": "I mean Third Normal Form (3NF) in paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "3nf",
+      "third normal form"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "transitive"
+    ]
+  },
+  {
+    "id": "AMB-08",
+    "category": "Ambiguous",
+    "question": "How much overhead does it add?",
+    "expected_unclear_hint": "it",
+    "simulated_clarification": "How much query latency overhead does Cross-Encoder reranking add in paper3_rag_systems.pdf?",
+    "expected_resolved_keywords": [
+      "cross-encoder",
+      "latency"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "85"
+    ]
+  },
+  {
+    "id": "AMB-09",
+    "category": "Ambiguous",
+    "question": "What happens when the heuristic is wrong?",
+    "expected_unclear_hint": "wrong",
+    "simulated_clarification": "In paper1_search_algorithms.pdf, what happens if h(n) is not admissible (overestimates) in A*?",
+    "expected_resolved_keywords": [
+      "admissible",
+      "a*"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "optimal"
+    ]
+  },
+  {
+    "id": "AMB-10",
+    "category": "Ambiguous",
+    "question": "Which retrieval method works best?",
+    "expected_unclear_hint": "best",
+    "simulated_clarification": "Which retrieval method had the highest Recall@5 on the 500 multi-hop QA benchmark in paper3_rag_systems.pdf?",
+    "expected_resolved_keywords": [
+      "recall@5"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "0.89",
+      "reranking"
+    ]
+  },
+  {
+    "id": "AMB-11",
+    "category": "Ambiguous",
+    "question": "What is the complexity of search?",
+    "expected_unclear_hint": "search",
+    "simulated_clarification": "What is the space complexity of Iterative Deepening DFS (IDDFS) in paper1_search_algorithms.pdf?",
+    "expected_resolved_keywords": [
+      "iddfs",
+      "space"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "b*d"
+    ]
+  },
+  {
+    "id": "AMB-12",
+    "category": "Ambiguous",
+    "question": "Tell me about the benchmark.",
+    "expected_unclear_hint": "benchmark",
+    "simulated_clarification": "Summarize the 10-million-row OLTP index benchmark in paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "oltp",
+      "10 million"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "1.8",
+      "0.6"
+    ]
+  },
+  {
+    "id": "AMB-13",
+    "category": "Ambiguous",
+    "question": "Why does performance drop?",
+    "expected_unclear_hint": "performance",
+    "simulated_clarification": "Why does write latency increase when adding secondary indexes in paper2_db_normalization.pdf?",
+    "expected_resolved_keywords": [
+      "secondary index",
+      "write"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "18"
+    ]
+  },
+  {
+    "id": "AMB-14",
+    "category": "Ambiguous",
+    "question": "Explain the fusion formula.",
+    "expected_unclear_hint": "fusion formula",
+    "simulated_clarification": "Explain the Reciprocal Rank Fusion (RRF) equation and constant k in paper3_rag_systems.pdf.",
+    "expected_resolved_keywords": [
+      "reciprocal rank fusion",
+      "rrf"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "60"
+    ]
+  },
+  {
+    "id": "AMB-15",
+    "category": "Ambiguous",
+    "question": "How is consistency defined here?",
+    "expected_unclear_hint": "consistency",
+    "simulated_clarification": "I mean heuristic consistency (monotonicity) for graph-search A* in paper1_search_algorithms.pdf, not ACID consistency.",
+    "expected_resolved_keywords": [
+      "consistency",
+      "a*"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "monotonicity"
+    ]
+  },
+  {
+    "id": "AMB-16",
+    "category": "Ambiguous",
+    "question": "What is the tradeoff?",
+    "expected_unclear_hint": "tradeoff",
+    "simulated_clarification": "What is the tradeoff between 3NF and BCNF in paper2_db_normalization.pdf?",
+    "expected_resolved_keywords": [
+      "3nf",
+      "bcnf"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "lossless",
+      "dependencies"
+    ]
+  },
+  {
+    "id": "AMB-17",
+    "category": "Ambiguous",
+    "question": "How does chunking work?",
+    "expected_unclear_hint": "chunking",
+    "simulated_clarification": "Compare fixed-size chunking vs semantic chunking in paper3_rag_systems.pdf.",
+    "expected_resolved_keywords": [
+      "fixed-size",
+      "semantic"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "512",
+      "0.72"
+    ]
+  },
+  {
+    "id": "AMB-18",
+    "category": "Ambiguous",
+    "question": "Which variant saves more memory?",
+    "expected_unclear_hint": "variant",
+    "simulated_clarification": "Compare standard A* vs Iterative Deepening A* (IDA*) space complexity in paper1_search_algorithms.pdf.",
+    "expected_resolved_keywords": [
+      "a*",
+      "ida*"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "b*d"
+    ]
+  },
+  {
+    "id": "AMB-19",
+    "category": "Ambiguous",
+    "question": "What does it guarantee?",
+    "expected_unclear_hint": "it",
+    "simulated_clarification": "What does Two-Phase Locking (2PL) guarantee in paper2_db_normalization.pdf?",
+    "expected_resolved_keywords": [
+      "two-phase locking",
+      "2pl"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "serializability"
+    ]
+  },
+  {
+    "id": "AMB-20",
+    "category": "Ambiguous",
+    "question": "Why is the baseline weak?",
+    "expected_unclear_hint": "baseline",
+    "simulated_clarification": "What was the hallucination rate of the zero-retrieval LLM baseline in paper3_rag_systems.pdf?",
+    "expected_resolved_keywords": [
+      "zero-retrieval",
+      "hallucination"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "24.5"
+    ]
+  },
+  {
+    "id": "AMB-21",
+    "category": "Ambiguous",
+    "question": "Explain the hybrid strategy.",
+    "expected_unclear_hint": "hybrid",
+    "simulated_clarification": "Explain how hybrid retrieval combines BM25 and dense vectors in paper3_rag_systems.pdf.",
+    "expected_resolved_keywords": [
+      "bm25",
+      "dense"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "rrf",
+      "60"
+    ]
+  },
+  {
+    "id": "AMB-22",
+    "category": "Ambiguous",
+    "question": "How do they prevent cascading issues?",
+    "expected_unclear_hint": "they",
+    "simulated_clarification": "Which locking protocol prevents cascading aborts in paper2_db_normalization.pdf?",
+    "expected_resolved_keywords": [
+      "cascading abort"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "strict 2pl"
+    ]
+  },
+  {
+    "id": "AMB-23",
+    "category": "Ambiguous",
+    "question": "What fails with dynamic changes?",
+    "expected_unclear_hint": "dynamic changes",
+    "simulated_clarification": "In paper1_search_algorithms.pdf, how do A* and IDA* behave when edge weights change dynamically?",
+    "expected_resolved_keywords": [
+      "dynamic",
+      "a*",
+      "ida*"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "d* lite",
+      "replanning"
+    ]
+  },
+  {
+    "id": "AMB-24",
+    "category": "Ambiguous",
+    "question": "What are the numbers for the two stages?",
+    "expected_unclear_hint": "two stages",
+    "simulated_clarification": "How many candidates are retrieved in stage 1 and kept after Cross-Encoder reranking in stage 2 in paper3_rag_systems.pdf?",
+    "expected_resolved_keywords": [
+      "rerank",
+      "stage"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "50",
+      "5"
+    ]
+  },
+  {
+    "id": "AMB-25",
+    "category": "Ambiguous",
+    "question": "Which normal form is better?",
+    "expected_unclear_hint": "better",
+    "simulated_clarification": "Compare 3NF vs BCNF regarding dependency preservation vs redundancy in paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "3nf",
+      "bcnf"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "superkey"
+    ]
+  },
+  {
+    "id": "AMB-26",
+    "category": "Ambiguous",
+    "question": "What is the cost for B?",
+    "expected_unclear_hint": "B",
+    "simulated_clarification": "In paper1_search_algorithms.pdf, what are g, h, and f(B) for neighbor B in the benchmark grid?",
+    "expected_resolved_keywords": [
+      "neighbor b",
+      "f(b)"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "3",
+      "5",
+      "8"
+    ]
+  },
+  {
+    "id": "AMB-27",
+    "category": "Ambiguous",
+    "question": "How does this approach reduce errors?",
+    "expected_unclear_hint": "this approach",
+    "simulated_clarification": "How does RAG with strict citation prompts over reranked top-5 passages reduce hallucination rate in paper3_rag_systems.pdf?",
+    "expected_resolved_keywords": [
+      "rag",
+      "hallucination"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "4.2"
+    ]
+  },
+  {
+    "id": "AMB-28",
+    "category": "Ambiguous",
+    "question": "What is the key difference between the two search methods?",
+    "expected_unclear_hint": "two search methods",
+    "simulated_clarification": "Compare Breadth-First Search (BFS) vs Depth-First Search (DFS) space complexity and completeness in paper1_search_algorithms.pdf.",
+    "expected_resolved_keywords": [
+      "bfs",
+      "dfs"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "b^d",
+      "b*m"
+    ]
+  },
+  {
+    "id": "AMB-29",
+    "category": "Ambiguous",
+    "question": "Why does blocking occur?",
+    "expected_unclear_hint": "blocking",
+    "simulated_clarification": "Explain how MVCC avoids read-write blocking compared to locking in paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "mvcc",
+      "blocking"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "snapshot"
+    ]
+  },
+  {
+    "id": "AMB-30",
+    "category": "Ambiguous",
+    "question": "Which method should I compare against dense retrieval?",
+    "expected_unclear_hint": "method",
+    "simulated_clarification": "Compare BM25 sparse retrieval vs dense retrieval in paper3_rag_systems.pdf.",
+    "expected_resolved_keywords": [
+      "bm25",
+      "dense"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "0.61",
+      "0.74"
+    ]
+  },
+  {
+    "id": "AMB-31",
+    "category": "Ambiguous",
+    "question": "Explain the overlap.",
+    "expected_unclear_hint": "overlap",
+    "simulated_clarification": "What overlap size is used in fixed-size chunking in paper3_rag_systems.pdf?",
+    "expected_resolved_keywords": [
+      "chunking",
+      "overlap"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "64"
+    ]
+  },
+  {
+    "id": "AMB-32",
+    "category": "Ambiguous",
+    "question": "Which paper covers scalability limits?",
+    "expected_unclear_hint": "scalability limits",
+    "simulated_clarification": "Summarize the memory scalability limit of standard A* in paper1_search_algorithms.pdf.",
+    "expected_resolved_keywords": [
+      "a*",
+      "memory"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "b^d"
+    ]
+  },
+  {
+    "id": "AMB-33",
+    "category": "Ambiguous",
+    "question": "What does the first one require?",
+    "expected_unclear_hint": "first one",
+    "simulated_clarification": "What does First Normal Form (1NF) require in paper2_db_normalization.pdf?",
+    "expected_resolved_keywords": [
+      "1nf",
+      "first normal form"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "atomic"
+    ]
+  },
+  {
+    "id": "AMB-34",
+    "category": "Ambiguous",
+    "question": "Why is it not optimal?",
+    "expected_unclear_hint": "it",
+    "simulated_clarification": "Why is Greedy Best-First Search not optimal in paper1_search_algorithms.pdf?",
+    "expected_resolved_keywords": [
+      "greedy best-first"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "h(n)"
+    ]
+  },
+  {
+    "id": "AMB-35",
+    "category": "Ambiguous",
+    "question": "How is distance measured?",
+    "expected_unclear_hint": "distance",
+    "simulated_clarification": "What similarity metric does dense retrieval use in paper3_rag_systems.pdf?",
+    "expected_resolved_keywords": [
+      "dense retrieval"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "cosine"
+    ]
+  },
+  {
+    "id": "AMB-36",
+    "category": "Ambiguous",
+    "question": "What happens to writes?",
+    "expected_unclear_hint": "writes",
+    "simulated_clarification": "What happens to write latency when secondary indexes are added in paper2_db_normalization.pdf?",
+    "expected_resolved_keywords": [
+      "write latency",
+      "secondary"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "18"
+    ]
+  },
+  {
+    "id": "AMB-37",
+    "category": "Ambiguous",
+    "question": "How does pruning work there?",
+    "expected_unclear_hint": "pruning",
+    "simulated_clarification": "How does IDA* prune branches in paper1_search_algorithms.pdf?",
+    "expected_resolved_keywords": [
+      "ida*",
+      "prune"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "f-cost",
+      "threshold"
+    ]
+  },
+  {
+    "id": "AMB-38",
+    "category": "Ambiguous",
+    "question": "What are the failure modes?",
+    "expected_unclear_hint": "failure modes",
+    "simulated_clarification": "What RAG failure modes are described in Section 3 of paper3_rag_systems.pdf?",
+    "expected_resolved_keywords": [
+      "rag",
+      "failure"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "recall",
+      "context"
+    ]
+  },
+  {
+    "id": "AMB-39",
+    "category": "Ambiguous",
+    "question": "Explain the isolation level.",
+    "expected_unclear_hint": "isolation level",
+    "simulated_clarification": "Which isolation level does MVCC enable for non-blocking reads in paper2_db_normalization.pdf?",
+    "expected_resolved_keywords": [
+      "mvcc",
+      "isolation"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "snapshot isolation"
+    ]
+  },
+  {
+    "id": "AMB-40",
+    "category": "Ambiguous",
+    "question": "Compare the memory bounds.",
+    "expected_unclear_hint": "memory bounds",
+    "simulated_clarification": "Compare how IDA* and SMA* manage memory in paper1_search_algorithms.pdf.",
+    "expected_resolved_keywords": [
+      "ida*",
+      "sma*"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "b*d",
+      "leaf"
+    ]
+  },
+  {
+    "id": "CTX-01",
+    "category": "Insufficient Context",
+    "question": "Which index should I choose for my database table?",
+    "simulated_clarification": "My queries run frequent SQL BETWEEN range scans on 10 million rows in paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "range",
+      "b+ tree",
+      "hash"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "b+ tree",
+      "14.2"
+    ]
+  },
+  {
+    "id": "CTX-02",
+    "category": "Insufficient Context",
+    "question": "Can we deploy Cross-Encoder reranking under our latency budget?",
+    "simulated_clarification": "Our latency budget is strictly sub-20 ms per query without distillation, referring to paper3_rag_systems.pdf.",
+    "expected_resolved_keywords": [
+      "20 ms",
+      "cross-encoder"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "85",
+      "unsuitable"
+    ]
+  },
+  {
+    "id": "CTX-03",
+    "category": "Insufficient Context",
+    "question": "Should I normalize my schema to BCNF or keep some denormalization?",
+    "simulated_clarification": "Our workload is read-heavy analytical data warehousing where multi-table join overhead hurts query speed, per paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "analytical",
+      "denormalization",
+      "bcnf"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "join",
+      "denormalization"
+    ]
+  },
+  {
+    "id": "CTX-04",
+    "category": "Insufficient Context",
+    "question": "Compute the f(n) value for the node.",
+    "simulated_clarification": "Compute f(n) for Neighbor A in the example benchmark grid of paper1_search_algorithms.pdf.",
+    "expected_resolved_keywords": [
+      "neighbor a",
+      "f("
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "2",
+      "4",
+      "6"
+    ]
+  },
+  {
+    "id": "CTX-05",
+    "category": "Insufficient Context",
+    "question": "Which search algorithm fits my memory constraint?",
+    "simulated_clarification": "I have a strict fixed memory budget M and want an A*-style search from paper1_search_algorithms.pdf.",
+    "expected_resolved_keywords": [
+      "fixed memory",
+      "m"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "sma*"
+    ]
+  },
+  {
+    "id": "CTX-06",
+    "category": "Insufficient Context",
+    "question": "Is BFS guaranteed to return the cheapest path for my graph?",
+    "simulated_clarification": "My graph has varying positive edge weights rather than equal step costs, based on paper1_search_algorithms.pdf.",
+    "expected_resolved_keywords": [
+      "bfs",
+      "varying"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "equal"
+    ]
+  },
+  {
+    "id": "CTX-07",
+    "category": "Insufficient Context",
+    "question": "Will standard A* work without replanning for my robot?",
+    "simulated_clarification": "The environment has dynamic edge weights that change during execution, per paper1_search_algorithms.pdf.",
+    "expected_resolved_keywords": [
+      "dynamic",
+      "a*"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "d* lite"
+    ]
+  },
+  {
+    "id": "CTX-08",
+    "category": "Insufficient Context",
+    "question": "Does this satisfy Third Normal Form?",
+    "simulated_clarification": "Assume a relation in 2NF has a nontrivial functional dependency X -> A where X is not a superkey and A is a non-prime attribute, per paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "3nf",
+      "superkey",
+      "prime"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "superkey",
+      "prime"
+    ]
+  },
+  {
+    "id": "CTX-09",
+    "category": "Insufficient Context",
+    "question": "How much will my write latency change if I add indexes?",
+    "simulated_clarification": "I plan to add one extra secondary index on an OLTP table like the benchmark in paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "secondary index",
+      "write latency"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "18"
+    ]
+  },
+  {
+    "id": "CTX-10",
+    "category": "Insufficient Context",
+    "question": "Which retrieval pipeline should I pick for our QA system?",
+    "simulated_clarification": "We need the highest Recall@5 and can afford 85 ms extra latency per query, based on paper3_rag_systems.pdf.",
+    "expected_resolved_keywords": [
+      "recall@5",
+      "85"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "hybrid rrf",
+      "cross-encoder",
+      "0.89"
+    ]
+  },
+  {
+    "id": "CTX-11",
+    "category": "Insufficient Context",
+    "question": "Is Depth-First Search safe to run on my state space?",
+    "simulated_clarification": "My state space can contain infinite paths, evaluated using paper1_search_algorithms.pdf.",
+    "expected_resolved_keywords": [
+      "dfs",
+      "infinite"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "complete"
+    ]
+  },
+  {
+    "id": "CTX-12",
+    "category": "Insufficient Context",
+    "question": "Should we use BM25 or dense retrieval for our corpus?",
+    "simulated_clarification": "Our queries frequently search for exact acronyms and rare identifiers, per paper3_rag_systems.pdf.",
+    "expected_resolved_keywords": [
+      "bm25",
+      "acronym"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "bm25"
+    ]
+  },
+  {
+    "id": "CTX-13",
+    "category": "Insufficient Context",
+    "question": "Will 2PL prevent cascading aborts in our scheduler?",
+    "simulated_clarification": "We are using basic Two-Phase Locking rather than Strict 2PL in paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "2pl",
+      "cascading"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "strict 2pl"
+    ]
+  },
+  {
+    "id": "CTX-14",
+    "category": "Insufficient Context",
+    "question": "Is tree-search A* optimal for our heuristic?",
+    "simulated_clarification": "Our heuristic h(n) can sometimes overestimate the true cost to the goal, based on paper1_search_algorithms.pdf.",
+    "expected_resolved_keywords": [
+      "h(n)",
+      "overestimate"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "admissible"
+    ]
+  },
+  {
+    "id": "CTX-15",
+    "category": "Insufficient Context",
+    "question": "What happens if my relation still has partial dependencies?",
+    "simulated_clarification": "The relation is currently in 1NF and has non-prime attributes partially dependent on a composite candidate key, per paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "2nf",
+      "partial"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "2nf"
+    ]
+  },
+  {
+    "id": "CTX-16",
+    "category": "Insufficient Context",
+    "question": "Does graph-search A* guarantee optimality with this heuristic?",
+    "simulated_clarification": "The heuristic is admissible but does not satisfy consistency (monotonicity) in paper1_search_algorithms.pdf.",
+    "expected_resolved_keywords": [
+      "graph-search",
+      "consistency"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "consistency"
+    ]
+  },
+  {
+    "id": "CTX-17",
+    "category": "Insufficient Context",
+    "question": "Should I use Hash indexing for my workload?",
+    "simulated_clarification": "My workload mostly does exact equality lookups rather than range queries on 10 million rows in paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "hash",
+      "equality"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "0.6",
+      "o(1)"
+    ]
+  },
+  {
+    "id": "CTX-18",
+    "category": "Insufficient Context",
+    "question": "How many chunks should we pass after retrieval?",
+    "simulated_clarification": "We are following the two-stage RRF + Cross-Encoder setup in paper3_rag_systems.pdf.",
+    "expected_resolved_keywords": [
+      "two-stage",
+      "rerank"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "50",
+      "5"
+    ]
+  },
+  {
+    "id": "CTX-19",
+    "category": "Insufficient Context",
+    "question": "Will BCNF preserve all of our functional dependencies?",
+    "simulated_clarification": "Check the formal guarantee of BCNF decomposition in paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "bcnf",
+      "dependencies"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "lossless"
+    ]
+  },
+  {
+    "id": "CTX-20",
+    "category": "Insufficient Context",
+    "question": "What is the expected hallucination rate in our setup?",
+    "simulated_clarification": "We use no retrieval at all (zero-retrieval LLM baseline) from paper3_rag_systems.pdf.",
+    "expected_resolved_keywords": [
+      "zero-retrieval",
+      "hallucination"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "24.5"
+    ]
+  },
+  {
+    "id": "CTX-21",
+    "category": "Insufficient Context",
+    "question": "Can readers block writers in our concurrency setup?",
+    "simulated_clarification": "We use MVCC with Snapshot Isolation as described in paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "mvcc",
+      "blocking"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "non-blocking",
+      "snapshot"
+    ]
+  },
+  {
+    "id": "CTX-22",
+    "category": "Insufficient Context",
+    "question": "Which algorithm gives BFS completeness without exponential space?",
+    "simulated_clarification": "Looking for an uninformed search algorithm in paper1_search_algorithms.pdf.",
+    "expected_resolved_keywords": [
+      "uninformed",
+      "completeness",
+      "space"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "iddfs"
+    ]
+  },
+  {
+    "id": "CTX-23",
+    "category": "Insufficient Context",
+    "question": "Should we rely on fixed chunking or semantic chunking?",
+    "simulated_clarification": "We want sentence grouping based on embedding cosine similarity >= 0.72 as in paper3_rag_systems.pdf.",
+    "expected_resolved_keywords": [
+      "semantic chunking",
+      "0.72"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "semantic"
+    ]
+  },
+  {
+    "id": "CTX-24",
+    "category": "Insufficient Context",
+    "question": "How long will a range scan take under my index choice?",
+    "simulated_clarification": "Suppose we chose a Hash index on a 10-million-row table and run a 1,000-row range scan per paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "hash",
+      "range scan"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "420"
+    ]
+  },
+  {
+    "id": "CTX-25",
+    "category": "Insufficient Context",
+    "question": "Is Greedy Best-First Search suitable if I need optimal paths?",
+    "simulated_clarification": "Using the properties of Greedy Best-First Search in paper1_search_algorithms.pdf.",
+    "expected_resolved_keywords": [
+      "greedy best-first",
+      "optimal"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "neither complete",
+      "not"
+    ]
+  },
+  {
+    "id": "CTX-26",
+    "category": "Insufficient Context",
+    "question": "What Recall@5 should I expect from my retriever?",
+    "simulated_clarification": "We only use dense vector retrieval without BM25 or reranking, per paper3_rag_systems.pdf.",
+    "expected_resolved_keywords": [
+      "dense",
+      "recall@5"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "0.74"
+    ]
+  },
+  {
+    "id": "CTX-27",
+    "category": "Insufficient Context",
+    "question": "Is this table already in 1NF?",
+    "simulated_clarification": "One column in our table stores repeating groups / comma-separated lists instead of atomic values, per paper2_db_normalization.pdf.",
+    "expected_resolved_keywords": [
+      "1nf",
+      "atomic"
+    ],
+    "expected_source": "paper2_db_normalization.pdf",
+    "expected_answer_keywords": [
+      "atomic"
+    ]
+  },
+  {
+    "id": "CTX-28",
+    "category": "Insufficient Context",
+    "question": "Will its accuracy drop if top-5 chunks exceed my context window?",
+    "simulated_clarification": "Asking about the RAG failure modes described in paper3_rag_systems.pdf.",
+    "expected_resolved_keywords": [
+      "rag",
+      "context"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "caveats",
+      "omit"
+    ]
+  },
+  {
+    "id": "CTX-29",
+    "category": "Insufficient Context",
+    "question": "What is the f-value at the start node?",
+    "simulated_clarification": "Look up the start node S in the example benchmark grid in paper1_search_algorithms.pdf.",
+    "expected_resolved_keywords": [
+      "start node s"
+    ],
+    "expected_source": "paper1_search_algorithms.pdf",
+    "expected_answer_keywords": [
+      "7"
+    ]
+  },
+  {
+    "id": "CTX-30",
+    "category": "Insufficient Context",
+    "question": "Can I combine sparse and dense rankings without training a neural scorer?",
+    "simulated_clarification": "Using the rank fusion method in paper3_rag_systems.pdf.",
+    "expected_resolved_keywords": [
+      "rrf",
+      "sparse",
+      "dense"
+    ],
+    "expected_source": "paper3_rag_systems.pdf",
+    "expected_answer_keywords": [
+      "reciprocal rank fusion",
+      "60"
+    ]
+  }
+]

@@ -1,0 +1,44 @@
+# Secrets & environment files
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.pem
+*.key
+
+# Virtual environments & Node dependencies
+venv/
+.venv/
+env/
+node_modules/
+
+# Python caches & build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# SQLite databases & WAL/SHM journals
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# User-uploaded & scanned PDFs
+uploads/
+
+# Archify intermediate receipts & local temp artifacts
+.archify/
+architecture/*.browser-check.json
+architecture/*.delivery.json
+architecture/*.finalize.json
+architecture/*.finalize-summary.json
+
+# OS & editor files
+.DS_Store
+Thumbs.db
+
+architecture/code-analysis/

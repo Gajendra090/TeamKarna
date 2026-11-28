@@ -1,0 +1,347 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "KNOWLEDGE X — Multi-Channel Data Flow Diagram (DFD)",
+    "subtitle": "End-to-End Lineage from Raw PDFs, Web Links, Camera Scans & User Queries to Sanitized SQLite Storage & Visual Outputs",
+    "output": "architecture/data-flow.html",
+    "parentHref": "system-architecture.html",
+    "quality_profile": "showcase"
+  },
+  "stages": [
+    {
+      "label": "1. Input Sources"
+    },
+    {
+      "label": "2. Validate & Ingest"
+    },
+    {
+      "label": "3. Context & AI Compute"
+    },
+    {
+      "label": "4. Persistence & Isolation"
+    },
+    {
+      "label": "5. UI Outputs & Eval"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "src_local_pdf",
+      "type": "frontend",
+      "label": "Local PDF Files",
+      "sublabel": "Sidebar or Dashboard Uploader",
+      "stage": 0,
+      "row": 0,
+      "explanation": "Multi-file PDF bytes uploaded directly from browser via Streamlit file_uploader."
+    },
+    {
+      "id": "src_public_url",
+      "type": "external",
+      "label": "Public PDF URL",
+      "sublabel": "External HTTP/HTTPS Paper Link",
+      "stage": 0,
+      "row": 1,
+      "explanation": "Arbitrary HTTP/HTTPS URL pasted into Dashboard 'Upload Using Link' tab."
+    },
+    {
+      "id": "src_scan_imgs",
+      "type": "frontend",
+      "label": "Scanned Page Images",
+      "sublabel": "Camera Capture / PNG / JPG / WEBP",
+      "stage": 0,
+      "row": 2,
+      "explanation": "Single camera capture or ordered multi-page scanned document images."
+    },
+    {
+      "id": "src_user_query",
+      "type": "frontend",
+      "label": "Queries & OAuth",
+      "sublabel": "QA, Ambiguity & Login",
+      "stage": 0,
+      "row": 3,
+      "explanation": "User questions submitted to Research Assistant or Ambiguity Detector plus OAuth callback codes."
+    },
+    {
+      "id": "ing_pymupdf",
+      "type": "backend",
+      "label": "PyMuPDF Extractor",
+      "sublabel": "pdf_reader.extract_pdf_bytes()",
+      "stage": 1,
+      "row": 0,
+      "explanation": "Extracts normalized page texts, page count, word count, and SHA-256 disk filename."
+    },
+    {
+      "id": "ing_ssrf_gate",
+      "type": "security",
+      "label": "SSRF URL Firewall",
+      "sublabel": "validate_public_pdf_url + 5-hop fetch",
+      "stage": 1,
+      "row": 1,
+      "explanation": "Blocks internal/private/NAT64 IPs, streams <=25MB, and enforces %PDF- magic header."
+    },
+    {
+      "id": "ing_ocr_gate",
+      "type": "backend",
+      "label": "Quality Gate & Vision OCR",
+      "sublabel": "ocr_scanner: Laplacian + Gemini Vision",
+      "stage": 1,
+      "row": 2,
+      "explanation": "Checks min dimension >=120px, std >=4.0, Laplacian >=3.0; builds searchable PDF with invisible text."
+    },
+    {
+      "id": "ing_oauth_verify",
+      "type": "security",
+      "label": "PKCE / OIDC",
+      "sublabel": "modules/auth.py",
+      "stage": 1,
+      "row": 3,
+      "explanation": "Validates PKCE state hash, exchanges code at Google Token endpoint, verifies JWT claims."
+    },
+    {
+      "id": "cmp_chunk_ctx",
+      "type": "backend",
+      "label": "Context Builder",
+      "sublabel": "build_corpus_context",
+      "stage": 2,
+      "row": 0,
+      "explanation": "Balances character budgets across documents and scores lexical chunk relevance (top_k=10)."
+    },
+    {
+      "id": "cmp_ai_pipeline",
+      "type": "cloud",
+      "label": "Gemini Engines",
+      "sublabel": "ai_analysis + gap + kmap",
+      "stage": 2,
+      "row": 1,
+      "explanation": "Generates KnowledgeAnalysisResult, ResearchGapReport, and KnowledgeGraphPayload with fallback."
+    },
+    {
+      "id": "cmp_ambiguity",
+      "type": "backend",
+      "label": "Ambiguity Engine",
+      "sublabel": "ambiguity_detector.py",
+      "stage": 2,
+      "row": 2,
+      "explanation": "Runs <2-doc deterministic check, classifies Clear/Ambiguous/Insufficient Context, rewrites query."
+    },
+    {
+      "id": "per_uploads_fs",
+      "type": "database",
+      "label": "PDF Store",
+      "sublabel": "uploads/user_<hash>/",
+      "stage": 3,
+      "row": 0,
+      "explanation": "Stores ingested local, fetched, and OCR-assembled PDFs partitioned per signed-in user."
+    },
+    {
+      "id": "per_secret_scrub",
+      "type": "security",
+      "label": "Secret Scrubbing Gate",
+      "sublabel": "history_db._sanitize_for_storage()",
+      "stage": 3,
+      "row": 1,
+      "explanation": "Strips api_key/token/secret fields and redacts AIza... strings prior to SQLite write."
+    },
+    {
+      "id": "per_sqlite_db",
+      "type": "database",
+      "label": "SQLite Persistent Store",
+      "sublabel": "knowledge_x_history.db (5 Tables)",
+      "stage": 3,
+      "row": 2,
+      "explanation": "Saves research_sessions, ambiguity_history, auth_sessions, oauth_states, app_settings."
+    },
+    {
+      "id": "out_plotly_ui",
+      "type": "frontend",
+      "label": "Charts & Maps",
+      "sublabel": "Plotly & NetworkX Render",
+      "stage": 4,
+      "row": 0,
+      "explanation": "Renders concept bars, gap heatmaps, NetworkX knowledge maps, cited QA, and downloadable .md."
+    },
+    {
+      "id": "out_history_profile",
+      "type": "frontend",
+      "label": "User History & Profile",
+      "sublabel": "pages/research_history.py & profile.py",
+      "stage": 4,
+      "row": 1,
+      "explanation": "Reloads user-owned sessions back into workspace state or deletes archived records."
+    },
+    {
+      "id": "out_eval_metrics",
+      "type": "backend",
+      "label": "Offline Eval Metrics",
+      "sublabel": "evaluation/run_ambiguity_eval.py",
+      "stage": 4,
+      "row": 2,
+      "explanation": "Benchmarks classification accuracy and latency against evaluation datasets."
+    }
+  ],
+  "flows": [
+    {
+      "from": "src_local_pdf",
+      "to": "ing_pymupdf",
+      "label": "Raw PDF bytes",
+      "classification": "DOCUMENT",
+      "payload": {
+        "summary": "Uploaded binary PDF stream",
+        "contentType": "application/pdf"
+      },
+      "id": "flow_0_src_local_pdf_to_ing_pymupdf"
+    },
+    {
+      "from": "src_public_url",
+      "to": "ing_ssrf_gate",
+      "label": "HTTP/HTTPS URL",
+      "classification": "UNTRUSTED URL",
+      "variant": "security",
+      "payload": {
+        "summary": "User-supplied PDF URL",
+        "contentType": "text/uri-list"
+      },
+      "id": "flow_1_src_public_url_to_ing_ssrf_gate"
+    },
+    {
+      "from": "ing_ssrf_gate",
+      "to": "ing_pymupdf",
+      "label": "Verified PDF",
+      "classification": "VALIDATED PDF",
+      "id": "flow_2_ing_ssrf_gate_to_ing_pymupdf"
+    },
+    {
+      "from": "src_scan_imgs",
+      "to": "ing_ocr_gate",
+      "label": "Scan images",
+      "classification": "IMAGE",
+      "payload": {
+        "summary": "JPEG/PNG camera or scanner bytes",
+        "contentType": "image/*"
+      },
+      "id": "flow_3_src_scan_imgs_to_ing_ocr_gate"
+    },
+    {
+      "from": "ing_ocr_gate",
+      "to": "ing_pymupdf",
+      "label": "Searchable PDF",
+      "classification": "OCR PDF",
+      "id": "flow_4_ing_ocr_gate_to_ing_pymupdf"
+    },
+    {
+      "from": "ing_pymupdf",
+      "to": "per_uploads_fs",
+      "label": "Write hashed PDF",
+      "classification": "FILE STORAGE",
+      "id": "flow_5_ing_pymupdf_to_per_uploads_fs"
+    },
+    {
+      "from": "ing_pymupdf",
+      "to": "cmp_chunk_ctx",
+      "label": "Page text",
+      "classification": "CORPUS TEXT",
+      "id": "flow_6_ing_pymupdf_to_cmp_chunk_ctx"
+    },
+    {
+      "from": "src_user_query",
+      "to": "ing_oauth_verify",
+      "label": "OAuth code",
+      "classification": "CREDENTIAL",
+      "variant": "security",
+      "id": "flow_7_src_user_query_to_ing_oauth_verify"
+    },
+    {
+      "from": "ing_oauth_verify",
+      "to": "per_sqlite_db",
+      "label": "Session + profile",
+      "classification": "AUTH RECORD",
+      "variant": "security",
+      "id": "flow_8_ing_oauth_verify_to_per_sqlite_db"
+    },
+    {
+      "from": "src_user_query",
+      "to": "cmp_ambiguity",
+      "label": "User query",
+      "classification": "QUERY",
+      "id": "flow_9_src_user_query_to_cmp_ambiguity"
+    },
+    {
+      "from": "cmp_chunk_ctx",
+      "to": "cmp_ai_pipeline",
+      "label": "Docs + chunks",
+      "classification": "CONTEXT",
+      "id": "flow_10_cmp_chunk_ctx_to_cmp_ai_pipeline"
+    },
+    {
+      "from": "cmp_chunk_ctx",
+      "to": "cmp_ambiguity",
+      "label": "Chunks",
+      "classification": "CONTEXT",
+      "id": "flow_11_cmp_chunk_ctx_to_cmp_ambiguity"
+    },
+    {
+      "from": "cmp_ai_pipeline",
+      "to": "per_secret_scrub",
+      "label": "AI outputs JSON",
+      "classification": "AI ARTIFACT",
+      "id": "flow_12_cmp_ai_pipeline_to_per_secret_scrub"
+    },
+    {
+      "from": "cmp_ambiguity",
+      "to": "per_secret_scrub",
+      "label": "Resolution",
+      "classification": "AI ARTIFACT",
+      "id": "flow_13_cmp_ambiguity_to_per_secret_scrub"
+    },
+    {
+      "from": "per_secret_scrub",
+      "to": "per_sqlite_db",
+      "label": "Sanitized record",
+      "classification": "SANITIZED SQL",
+      "variant": "security",
+      "id": "flow_14_per_secret_scrub_to_per_sqlite_db",
+      "labelDy": 25
+    },
+    {
+      "from": "cmp_ai_pipeline",
+      "to": "out_plotly_ui",
+      "label": "Live visuals",
+      "classification": "UI VIEW",
+      "variant": "emphasis",
+      "id": "flow_15_cmp_ai_pipeline_to_out_plotly_ui"
+    },
+    {
+      "from": "per_sqlite_db",
+      "to": "out_history_profile",
+      "label": "User records",
+      "classification": "HISTORY QUERY",
+      "id": "flow_16_per_sqlite_db_to_out_history_profile"
+    },
+    {
+      "from": "cmp_ambiguity",
+      "to": "out_eval_metrics",
+      "label": "Eval metrics",
+      "classification": "EVAL METRIC",
+      "variant": "dashed",
+      "id": "flow_17_cmp_ambiguity_to_out_eval_metrics"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Unified Corpus Convergence",
+      "items": [
+        "All three ingestion paths (Local PDF, Public URL, Vision OCR Scan) converge into pdf_reader.extract_pdf_bytes() so every downstream analyzer sees identical normalized document dictionaries."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Two Security Filtering Gates",
+      "items": [
+        "Inbound web links pass through validate_public_pdf_url() on every HTTP redirect before bytes enter PyMuPDF.",
+        "Outbound AI payloads pass through _sanitize_for_storage() before landing in SQLite."
+      ]
+    }
+  ]
+}

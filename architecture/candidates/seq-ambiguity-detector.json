@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Sequence Diagram — Ambiguity Detector & Clarification Loop",
+    "subtitle": "Deterministic Comparison Guard, 3-Way Classification, Interactive Clarification, Query Rewrite & Cited Resolution",
+    "output": "architecture/seq-ambiguity-detector.html",
+    "parentHref": "system-architecture.html",
+    "column_fit": "spread",
+    "animation": "trace",
+    "quality_profile": "showcase"
+  },
+  "participants": [
+    {
+      "id": "researcher",
+      "type": "external",
+      "label": "Researcher",
+      "sublabel": "UI Controls",
+      "explanation": "Submits a question, selects an interpretation radio or custom clarification, and reviews resolved citations."
+    },
+    {
+      "id": "pg_amb",
+      "type": "frontend",
+      "label": "Ambiguity UI",
+      "sublabel": "pages/ambiguity_detector.py",
+      "explanation": "Binds radio/text widgets (amb_interp_radio_*, amb_custom_clar_*) and suppresses repeat clarification prompts."
+    },
+    {
+      "id": "mod_amb",
+      "type": "backend",
+      "label": "Ambiguity Core",
+      "sublabel": "modules/ambiguity_detector.py",
+      "explanation": "Checks <2-document comparison regex, classifies questions, rewrites resolved queries, and orchestrates final QA."
+    },
+    {
+      "id": "pdf_mod",
+      "type": "backend",
+      "label": "Chunk Reader",
+      "sublabel": "modules/pdf_reader.py",
+      "explanation": "Scores document chunks against the query and supplies grounded document previews."
+    },
+    {
+      "id": "ai_gemini",
+      "type": "cloud",
+      "label": "Gemini Gateway",
+      "sublabel": "ai_analysis & Gemini API",
+      "explanation": "Generates AmbiguityClassification, rewritten question string, and cited ResearchAnswer."
+    },
+    {
+      "id": "history_db",
+      "type": "database",
+      "label": "History DB",
+      "sublabel": "modules/history_db.py",
+      "explanation": "Saves clarified resolution record scoped by user_id after secret sanitization."
+    }
+  ],
+  "segments": [
+    { "from": 150, "to": 340, "label": "1. Classification & Deterministic Context Guard" },
+    { "from": 350, "to": 500, "label": "2. Interactive User Clarification (If Unclear)" },
+    { "from": 510, "to": 645, "label": "3. Query Rewrite, Cited Corpus Answer & Archive" }
+  ],
+  "messages": [
+    {
+      "id": "ask_q",
+      "from": "researcher",
+      "to": "pg_amb",
+      "y": 170,
+      "label": "Submit question + selected PDFs",
+      "variant": "default"
+    },
+    {
+      "id": "call_init",
+      "from": "pg_amb",
+      "to": "mod_amb",
+      "y": 202,
+      "label": "process_initial_question(question, docs, history)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "check_chunks",
+      "from": "mod_amb",
+      "to": "pdf_mod",
+      "y": 236,
+      "label": "retrieve_relevant_chunks(top_k=5) + doc count check",
+      "variant": "default",
+      "note": "Regex guard flags comparison queries as Insufficient Context when len(docs) < 2"
+    },
+    {
+      "id": "classify_json",
+      "from": "mod_amb",
+      "to": "ai_gemini",
+      "y": 308,
+      "label": "Classify Clear / Ambiguous / Insufficient (JSON)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "present_choices",
+      "from": "pg_amb",
+      "to": "researcher",
+      "y": 370,
+      "label": "If unclear: render radio choices & custom input",
+      "variant": "return",
+      "note": "If Clear: skips clarification and proceeds to cited QA"
+    },
+    {
+      "id": "user_clarifies",
+      "from": "researcher",
+      "to": "pg_amb",
+      "y": 442,
+      "label": "Pick interpretation or enter missing context",
+      "variant": "default"
+    },
+    {
+      "id": "call_complete",
+      "from": "pg_amb",
+      "to": "mod_amb",
+      "y": 476,
+      "label": "complete_clarified_question(orig, interp, extra)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "rewrite_q",
+      "from": "mod_amb",
+      "to": "ai_gemini",
+      "y": 530,
+      "label": "rewrite_clarified_question() -> crisp query",
+      "variant": "default"
+    },
+    {
+      "id": "answer_qa",
+      "from": "mod_amb",
+      "to": "ai_gemini",
+      "y": 564,
+      "label": "answer_research_question(resolved, top_k=10)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "save_amb",
+      "from": "pg_amb",
+      "to": "history_db",
+      "y": 598,
+      "label": "save_ambiguity_record(user_id, citations)",
+      "variant": "security"
+    },
+    {
+      "id": "render_answer",
+      "from": "pg_amb",
+      "to": "researcher",
+      "y": 632,
+      "label": "Render resolved question, answer & citations",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    { "participant": "pg_amb", "from": 170, "to": 378, "type": "frontend" },
+    { "participant": "mod_amb", "from": 202, "to": 330, "type": "backend" },
+    { "participant": "pg_amb", "from": 442, "to": 635, "type": "frontend" },
+    { "participant": "mod_amb", "from": 476, "to": 580, "type": "backend" }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "Never Silently Guesses When Context Is Missing",
+      "items": [
+        "Distinguishes Clear, Ambiguous, and Insufficient Context explicitly so under-specified questions pause for user intent rather than hallucinating."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Offline Benchmark Harness",
+      "items": [
+        "evaluation/build_dataset.py and evaluation/run_ambiguity_eval.py test this exact process_initial_question() classification boundary in batch mode."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Sequence Diagram — Multi-Channel Ingestion & Full AI Synthesis Pipeline",
+    "subtitle": "From PDF Upload / SSRF URL / Vision OCR to Synthesis, Gap Detection, Knowledge Graph Construction & SQLite Persistence",
+    "output": "architecture/seq-ai-synthesis-pipeline.html",
+    "parentHref": "system-architecture.html",
+    "column_fit": "spread",
+    "animation": "trace",
+    "quality_profile": "showcase"
+  },
+  "participants": [
+    {
+      "id": "researcher",
+      "type": "external",
+      "label": "Researcher",
+      "sublabel": "Dashboard UI",
+      "explanation": "Uploads PDFs, submits public links, captures document scans, and clicks Run Full AI Synthesis Pipeline."
+    },
+    {
+      "id": "dashboard",
+      "type": "frontend",
+      "label": "Dashboard UI",
+      "sublabel": "pages/dashboard.py",
+      "explanation": "Coordinates ingestion tabs and runs the sequential 4-step synthesis, gap, graph, and save pipeline."
+    },
+    {
+      "id": "ingest",
+      "type": "backend",
+      "label": "Ingest / OCR",
+      "sublabel": "pdf_reader & ocr_scanner",
+      "explanation": "Runs PyMuPDF text parsing, SSRF URL firewall, Laplacian blur checks, and invisible-text OCR PDF assembly."
+    },
+    {
+      "id": "ai_mod",
+      "type": "backend",
+      "label": "AI Gateway",
+      "sublabel": "modules/ai_analysis.py",
+      "explanation": "Executes generate_structured_json() with schema binding, retries, and fallback model progression."
+    },
+    {
+      "id": "engines",
+      "type": "backend",
+      "label": "Gap & Map",
+      "sublabel": "research_gap & kmap",
+      "explanation": "Produces ResearchGapReport matrices and builds NetworkX structural or semantic concept graphs."
+    },
+    {
+      "id": "gemini",
+      "type": "cloud",
+      "label": "Gemini API",
+      "sublabel": "Vision OCR & JSON",
+      "explanation": "Processes multimodal OCR frames and multi-document structured JSON synthesis prompts."
+    },
+    {
+      "id": "storage",
+      "type": "database",
+      "label": "SQLite & Disk",
+      "sublabel": "history_db & uploads/",
+      "explanation": "Persists SHA-256 PDFs and sanitized user-scoped research_sessions rows."
+    }
+  ],
+  "segments": [
+    { "from": 150, "to": 310, "label": "1. Multi-Channel Ingestion & Validation" },
+    { "from": 320, "to": 515, "label": "2. AI Synthesis, Gap & Structural Graph" },
+    { "from": 525, "to": 645, "label": "3. Sanitized Persistence & Session Render" }
+  ],
+  "messages": [
+    {
+      "id": "submit_sources",
+      "from": "researcher",
+      "to": "dashboard",
+      "y": 170,
+      "label": "Upload PDF / Paste URL / Capture Scan",
+      "variant": "default"
+    },
+    {
+      "id": "dispatch_ingest",
+      "from": "dashboard",
+      "to": "ingest",
+      "y": 202,
+      "label": "process_uploaded / fetch_pdf / process_scanned",
+      "variant": "default"
+    },
+    {
+      "id": "vision_ocr_call",
+      "from": "ingest",
+      "to": "gemini",
+      "y": 236,
+      "label": "If scan: Vision OCR (after Laplacian gate)",
+      "variant": "dashed"
+    },
+    {
+      "id": "persist_pdf",
+      "from": "ingest",
+      "to": "storage",
+      "y": 272,
+      "label": "extract_pdf_bytes -> save SHA-256 PDF",
+      "variant": "default"
+    },
+    {
+      "id": "trigger_pipeline",
+      "from": "researcher",
+      "to": "dashboard",
+      "y": 335,
+      "label": "Click Run Full AI Synthesis Pipeline",
+      "variant": "emphasis"
+    },
+    {
+      "id": "run_analyze",
+      "from": "dashboard",
+      "to": "ai_mod",
+      "y": 368,
+      "label": "analyze_documents(docs, model, auto_fallback)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "gemini_synthesis",
+      "from": "ai_mod",
+      "to": "gemini",
+      "y": 402,
+      "label": "Structured JSON call (retry + model fallback)",
+      "variant": "emphasis",
+      "note": "Returns overview, breakdowns, common concepts & glossary"
+    },
+    {
+      "id": "run_gaps",
+      "from": "dashboard",
+      "to": "engines",
+      "y": 475,
+      "label": "detect_research_gaps() + build_structural_graph_data()",
+      "variant": "default"
+    },
+    {
+      "id": "gap_gemini",
+      "from": "engines",
+      "to": "gemini",
+      "y": 506,
+      "label": "Gap & contradiction JSON synthesis",
+      "variant": "default"
+    },
+    {
+      "id": "save_session",
+      "from": "dashboard",
+      "to": "storage",
+      "y": 555,
+      "label": "save_research_session(user_id) scrubbed",
+      "variant": "security",
+      "note": "Updates session_state for Analysis, Map & QA pages"
+    },
+    {
+      "id": "render_done",
+      "from": "dashboard",
+      "to": "researcher",
+      "y": 632,
+      "label": "Display KPIs, synthesis & saved session",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    { "participant": "dashboard", "from": 170, "to": 278, "type": "frontend" },
+    { "participant": "ingest", "from": 202, "to": 278, "type": "backend" },
+    { "participant": "dashboard", "from": 335, "to": 635, "type": "frontend" },
+    { "participant": "ai_mod", "from": 368, "to": 430, "type": "backend" },
+    { "participant": "engines", "from": 475, "to": 512, "type": "backend" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Hybrid Fast + AI Graph Strategy",
+      "items": [
+        "The Dashboard one-click pipeline uses build_structural_graph_data() so every node clusters cleanly without extra LLM latency.",
+        "Inside pages/knowledge_map.py, researchers can optionally invoke extract_ai_knowledge_graph() for deeper semantic relations."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Failure Resilience",
+      "items": [
+        "Missing or exhausted Gemini models trigger _DAILY_EXHAUSTED_MODELS tracking and automatic model step-down rather than crashing the workspace."
+      ]
+    }
+  ]
+}

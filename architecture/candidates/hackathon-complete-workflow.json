@@ -1,0 +1,96 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "KNOWLEDGE X — Complete System Workflow",
+    "subtitle": "End-to-End Flow: Optional Auth, Multi-Modal Ingestion, OCR, Gemini Synthesis, Ambiguity Clarification & SQLite History",
+    "output": "architecture/hackathon-complete-workflow.html",
+    "parentHref": "hackathon-system-architecture.html",
+    "quality_profile": "showcase",
+    "animation": "trace",
+    "visual_preset": "editorial"
+  },
+  "lanes": [
+    { "id": "lane_session", "label": "Session & UI", "variant": "normal" },
+    { "id": "lane_auth", "label": "Auth & Guardrails", "variant": "exception" },
+    { "id": "lane_ingest", "label": "Ingestion & OCR", "variant": "normal" },
+    { "id": "lane_ai", "label": "Gemini AI & Graph", "variant": "normal" },
+    { "id": "lane_qa", "label": "Q&A & SQLite", "variant": "normal" }
+  ],
+  "phases": [
+    { "id": "ph_entry", "label": "1. Entry & Auth", "fromCol": 0, "toCol": 1 },
+    { "id": "ph_ingest", "label": "2. Ingest & OCR", "fromCol": 2, "toCol": 2 },
+    { "id": "ph_synth", "label": "3. AI Synthesis", "fromCol": 3, "toCol": 3 },
+    { "id": "ph_qa", "label": "4. Q&A & Ambiguity", "fromCol": 4, "toCol": 4, "variant": "emphasis" },
+    { "id": "ph_save", "label": "5. Save & Display", "fromCol": 5, "toCol": 5 }
+  ],
+  "mainPath": [
+    "wf_start",
+    "wf_auth",
+    "wf_dashboard",
+    "wf_input",
+    "wf_validate",
+    "wf_extract",
+    "wf_gemini",
+    "wf_results",
+    "wf_question",
+    "wf_amb_check",
+    "wf_direct_ans",
+    "wf_sqlite",
+    "wf_end"
+  ],
+  "nodes": [
+    { "id": "wf_start", "lane": "lane_session", "col": 0, "type": "external", "label": "Open App", "width": 132 },
+    { "id": "wf_auth", "lane": "lane_auth", "col": 0, "type": "security", "label": "Auth (Optional)", "width": 132 },
+    { "id": "wf_dashboard", "lane": "lane_session", "col": 1, "type": "frontend", "label": "Dashboard", "width": 132 },
+
+    { "id": "wf_input", "lane": "lane_ingest", "col": 1, "type": "frontend", "label": "PDF / URL / Scan", "width": 132 },
+    { "id": "wf_validate", "lane": "lane_auth", "col": 2, "type": "security", "label": "Validate & SSRF", "width": 132 },
+    { "id": "wf_extract", "lane": "lane_ingest", "col": 2, "type": "backend", "label": "Extract & OCR", "width": 132 },
+
+    { "id": "wf_gemini", "lane": "lane_ai", "col": 2, "type": "cloud", "label": "Gemini Analysis", "width": 132 },
+    { "id": "wf_results", "lane": "lane_ai", "col": 3, "type": "backend", "label": "Gaps & Graph", "width": 132 },
+    { "id": "wf_question", "lane": "lane_qa", "col": 3, "type": "frontend", "label": "Enter Question", "width": 132 },
+
+    { "id": "wf_amb_check", "lane": "lane_auth", "col": 3, "type": "security", "label": "Ambiguous?", "width": 132 },
+    { "id": "wf_clarify", "lane": "lane_qa", "col": 4, "type": "messagebus", "label": "Clarify & Rewrite", "width": 132 },
+    { "id": "wf_direct_ans", "lane": "lane_ai", "col": 4, "type": "cloud", "label": "Generate Answer", "width": 132 },
+
+    { "id": "wf_sqlite", "lane": "lane_qa", "col": 5, "type": "database", "label": "Save to SQLite", "width": 132 },
+    { "id": "wf_end", "lane": "lane_session", "col": 5, "type": "frontend", "label": "Display & End", "width": 132 }
+  ],
+  "edges": [
+    { "id": "e_start_auth", "from": "wf_start", "to": "wf_auth", "variant": "default" },
+    { "id": "e_auth_dash", "from": "wf_auth", "to": "wf_dashboard", "label": "Guest / Signed in", "variant": "default" },
+    { "id": "e_dash_input", "from": "wf_dashboard", "to": "wf_input", "variant": "emphasis" },
+    { "id": "e_input_val", "from": "wf_input", "to": "wf_validate", "variant": "default" },
+    { "id": "e_val_ext", "from": "wf_validate", "to": "wf_extract", "label": "Clean & chunk", "variant": "default" },
+    { "id": "e_ext_gem", "from": "wf_extract", "to": "wf_gemini", "variant": "emphasis" },
+    { "id": "e_gem_res", "from": "wf_gemini", "to": "wf_results", "variant": "emphasis" },
+    { "id": "e_res_q", "from": "wf_results", "to": "wf_question", "label": "Assistant", "variant": "default" },
+    { "id": "e_q_amb", "from": "wf_question", "to": "wf_amb_check", "variant": "default" },
+    { "id": "e_amb_yes", "from": "wf_amb_check", "to": "wf_clarify", "label": "YES", "variant": "security" },
+    { "id": "e_clarify_ans", "from": "wf_clarify", "to": "wf_direct_ans", "variant": "emphasis" },
+    { "id": "e_amb_no", "from": "wf_amb_check", "to": "wf_direct_ans", "label": "NO", "variant": "default" },
+    { "id": "e_ans_db", "from": "wf_direct_ans", "to": "wf_sqlite", "variant": "emphasis" },
+    { "id": "e_db_end", "from": "wf_sqlite", "to": "wf_end", "variant": "emphasis" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Optional Auth & Multi-Modal Input",
+      "items": [
+        "Google OAuth 2.0 / Email login is optional (guest workspace works)",
+        "Supports PDF Upload, SSRF-safe URL import, and Webcam/Image OCR"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Ambiguity Branching",
+      "items": [
+        "YES: Show interpretations, ask user clarification, rewrite query",
+        "NO: Answer directly with grounded citations & save to SQLite"
+      ]
+    }
+  ]
+}

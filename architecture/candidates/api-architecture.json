@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "layout": {
+    "mode": "auto"
+  },
+  "meta": {
+    "title": "KNOWLEDGE X — API & External Integration Architecture",
+    "subtitle": "In-Process Python Service Contracts, Gemini AI Gateway (Model Fallback & Vision OCR), Google OAuth 2.0 / OIDC & SSRF-Gated PDF Fetching",
+    "output": "architecture/api-architecture.html",
+    "parentHref": "system-architecture.html",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "gemini_ai",
+        "label": "Gemini AI API",
+        "focus": [
+          "streamlit_callers",
+          "ai_gateway_mod",
+          "ocr_scanner_mod",
+          "gemini_models_api",
+          "gemini_vision_api"
+        ],
+        "note": "Structured JSON schemas, retries, daily exhaustion cache, model fallback, and multimodal OCR."
+      },
+      {
+        "id": "oauth_ssrf",
+        "label": "OAuth & Web PDF APIs",
+        "focus": [
+          "streamlit_callers",
+          "oauth_engine_mod",
+          "ssrf_pdf_mod",
+          "google_auth_ep",
+          "google_token_ep",
+          "google_jwks",
+          "external_pdf_ep"
+        ],
+        "note": "External identity endpoints and DNS/IP SSRF firewall guarding arbitrary user PDF URLs."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "streamlit_callers",
+      "type": "frontend",
+      "label": "Streamlit Pages & App Shell",
+      "sublabel": "app.py & pages/*.py (No Internal REST Server)",
+      "tag": "LOCAL CALLERS",
+      "icon": "frontend",
+      "explanation": "KNOWLEDGE X exposes no FastAPI/Flask REST endpoints; UI actions call typed Python APIs in modules/ directly inside the Streamlit server process."
+    },
+    {
+      "id": "ai_gateway_mod",
+      "type": "backend",
+      "label": "Gemini Gateway Contract",
+      "sublabel": "ai_analysis.py · Schema JSON & Fallback",
+      "tag": "SDK WRAPPER",
+      "icon": "backend",
+      "explanation": "Resolves GEMINI_API_KEY (override > .env > secrets.toml), runs test_gemini_connection(), tracks _DAILY_EXHAUSTED_MODELS, and steps down FALLBACK_MODELS on quota/rate-limit errors."
+    },
+    {
+      "id": "ocr_scanner_mod",
+      "type": "backend",
+      "label": "Multimodal Vision Contract",
+      "sublabel": "ocr_scanner.py · Vision Bytes OCR",
+      "tag": "VISION WRAPPER",
+      "icon": "backend",
+      "explanation": "Resizes validated scan images to <=2000px and invokes Gemini structured JSON generation with raw image bytes to extract headings and transcribed prose."
+    },
+    {
+      "id": "oauth_engine_mod",
+      "type": "security",
+      "label": "OAuth 2.0 / OIDC Client",
+      "sublabel": "auth.py · PKCE URL, Token & OIDC",
+      "tag": "AUTH CLIENT",
+      "icon": "security",
+      "explanation": "Builds S256 PKCE authorization URLs, exchanges ?code via requests.post, and verifies signed Google ID tokens with clock-skew checks and JWKS validation.",
+      "drilldowns": [
+        {
+          "href": "seq-google-oauth.html",
+          "label": "OAuth 2.0 Sequence",
+          "diagram_type": "sequence"
+        }
+      ]
+    },
+    {
+      "id": "ssrf_pdf_mod",
+      "type": "security",
+      "label": "SSRF-Guarded URL Fetcher",
+      "sublabel": "pdf_reader.py · SSRF Firewall & Fetch",
+      "tag": "SSRF FIREWALL",
+      "icon": "security",
+      "explanation": "Rejects credentials-in-URL, blocks localhost/metadata hostnames, resolves DNS to ensure public global IPv4/IPv6 (blocking RFC1918, loopback, link-local, NAT64), and validates each redirect hop up to 5 hops and 25MB."
+    },
+    {
+      "id": "gemini_models_api",
+      "type": "cloud",
+      "label": "Google Gemini GenerateContent API",
+      "sublabel": "google-genai · Gemini Model Fallback Chain",
+      "tag": "REST / GRPC API",
+      "icon": "cloud",
+      "explanation": "Executes models.list() health checks and structured application/json generation bounded by Pydantic response_schema objects."
+    },
+    {
+      "id": "gemini_vision_api",
+      "type": "cloud",
+      "label": "Google Gemini Multimodal Vision",
+      "sublabel": "google-genai · Image Bytes + OCR Schema Prompt",
+      "tag": "VISION API",
+      "icon": "cloud",
+      "explanation": "Processes JPEG/PNG document scans alongside structured OCR prompts to return OCRPageExtraction payloads."
+    },
+    {
+      "id": "google_auth_ep",
+      "type": "external",
+      "label": "Google Authorization Endpoint",
+      "sublabel": "GET https://accounts.google.com/o/oauth2/v2/auth",
+      "tag": "OAUTH AUTH",
+      "icon": "external",
+      "explanation": "Presents Google consent screen with scope='openid email profile', S256 code_challenge, and CSRF state parameter."
+    },
+    {
+      "id": "google_token_ep",
+      "type": "external",
+      "label": "Google OAuth Token Endpoint",
+      "sublabel": "POST https://oauth2.googleapis.com/token (timeout=15s)",
+      "tag": "OAUTH TOKEN",
+      "icon": "external",
+      "explanation": "Exchanges single-use authorization code + PKCE code_verifier + client credentials for Google OIDC id_token and access metadata."
+    },
+    {
+      "id": "google_jwks",
+      "type": "external",
+      "label": "Google OIDC Public JWKS",
+      "sublabel": "google.oauth2.id_token.verify_oauth2_token()",
+      "tag": "OIDC JWKS",
+      "icon": "security",
+      "explanation": "Verifies RS256 ID token signature, audience (GOOGLE_CLIENT_ID), issuer (accounts.google.com), non-empty sub, email, and email_verified=true."
+    },
+    {
+      "id": "external_pdf_ep",
+      "type": "external",
+      "label": "External Public PDF Servers",
+      "sublabel": "HTTP/HTTPS Stream (20s, <=25MB, %PDF-)",
+      "tag": "PUBLIC WEB",
+      "icon": "external",
+      "explanation": "Delivers downloadable research PDFs; non-PDF HTML payloads and unsafe redirects are rejected before disk storage."
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Internal Python API Layer (modules/ — No HTTP Listener)",
+      "wraps": [
+        "streamlit_callers",
+        "ai_gateway_mod",
+        "ocr_scanner_mod",
+        "oauth_engine_mod",
+        "ssrf_pdf_mod"
+      ]
+    },
+    {
+      "kind": "security-group",
+      "label": "Google Identity & Gemini Cloud APIs",
+      "wraps": [
+        "gemini_models_api",
+        "gemini_vision_api",
+        "google_auth_ep",
+        "google_token_ep",
+        "google_jwks"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "streamlit_callers",
+      "to": "ai_gateway_mod",
+      "label": "analyze_documents / answer / test"
+    },
+    {
+      "from": "streamlit_callers",
+      "to": "ocr_scanner_mod",
+      "label": "process_scanned_pages()"
+    },
+    {
+      "from": "streamlit_callers",
+      "to": "oauth_engine_mod",
+      "label": "auth URL, callback & logout",
+      "variant": "security"
+    },
+    {
+      "from": "streamlit_callers",
+      "to": "ssrf_pdf_mod",
+      "label": "fetch_pdf_from_url(url)"
+    },
+    {
+      "from": "ocr_scanner_mod",
+      "to": "ai_gateway_mod",
+      "label": "get_gemini_client + generate_structured_json"
+    },
+    {
+      "from": "ai_gateway_mod",
+      "to": "gemini_models_api",
+      "label": "models.list / generate_content (JSON)",
+      "variant": "emphasis"
+    },
+    {
+      "from": "ocr_scanner_mod",
+      "to": "gemini_vision_api",
+      "label": "Image bytes + schema prompt",
+      "variant": "emphasis"
+    },
+    {
+      "from": "oauth_engine_mod",
+      "to": "google_auth_ep",
+      "label": "Browser redirect + PKCE S256",
+      "variant": "security"
+    },
+    {
+      "from": "oauth_engine_mod",
+      "to": "google_token_ep",
+      "label": "HTTPS POST code + code_verifier",
+      "variant": "security"
+    },
+    {
+      "from": "oauth_engine_mod",
+      "to": "google_jwks",
+      "label": "Verify JWT signature & claims",
+      "variant": "security"
+    },
+    {
+      "from": "ssrf_pdf_mod",
+      "to": "external_pdf_ep",
+      "label": "Streamed GET (SSRF-checked hops)",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Why There Are No Custom REST Endpoints",
+      "items": [
+        "All business capabilities are exposed as typed Python functions across 8 modules inside modules/ rather than a separate FastAPI/Flask microservice.",
+        "Streamlit communicates with the browser over its internal WebSocket/HTTP transport; only outbound HTTP(S) integrations leave the process."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Gemini API Resilience & Quota Protection",
+      "items": [
+        "Every structured AI call enforces REQUEST_TIMEOUT_MS=90_000, retry_attempts=2, Pydantic schema validation, and JSON extraction fallback.",
+        "Daily quota exhaustion marks models in _DAILY_EXHAUSTED_MODELS for immediate skip, stepping down FALLBACK_MODELS automatically when auto_fallback is enabled."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Outbound HTTP Guardrails",
+      "items": [
+        "Google OAuth exchanges run over HTTPS POST with 15s timeout, strict PKCE S256, and verified OIDC claims before session minting.",
+        "Public PDF URL downloads resolve DNS and block private/loopback/link-local/reserved/NAT64 IPs on initial URL and all <=5 redirects."
+      ]
+    }
+  ]
+}
